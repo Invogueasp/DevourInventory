@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Page";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+
+<div class="panel panel-transparent" ng-controller="companyController" ng-init="loadCompany()">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Company
+        </div>
+
+        <div class="pull-right m-t-15">
+            <div id="show-modal" class="btn btn-success">
+                <i class="fa fa-plus pr1"></i>
+                <a href="#!/CreateCompany" ng-click="removeCookies()">Add New</a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="panel-body">
+        <table id="tableWithSearch" st-table="data" st-safe-src="companyList" class="table table-striped">
+            <thead>
+                <tr>
+                    <td colspan="9" style="padding-right: 0px;">
+                        <input st-search placeholder="Search" class="input-sm form-control topsearch" type="search" style="width: 200px; float: right;" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Code</th>
+                    <th>TaxNo</th>
+                    <th>Registration No</th>
+                    <th>Contact No</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Status</th>
+                    <th style="width:10%;text-align:center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in data">
+                    <td>{{row.Name}}</td>
+                    <td>{{row.Code}}</td>
+                    <td>{{row.TaxNo}}</td>
+                    <td>{{row.RegistrationNo}}</td>
+                    <td>{{row.ContactNo}}</td>
+                    <td>{{row.EmailID}}</td>
+                    <td>{{row.Address}}</td>
+                    <td>{{row.Status == 1 ? "Active":"InActive"}}</td>
+                    <td align="center">
+                        <button type="button" class="btn btn-xs btn-success" ng-click="editRow(row)">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="Page-align">
+                        <div st-pagination="" st-items-by-page="itemsByPage"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

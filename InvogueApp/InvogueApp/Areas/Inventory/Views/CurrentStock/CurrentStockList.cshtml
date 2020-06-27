@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "Current Stock";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+<style>
+    tfoot.totalList {
+        border-bottom: 1px solid #ddd;
+    }
+
+        tfoot.totalList tr td {
+            border: none;
+        }
+</style>
+<div class="panel panel-transparent">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Current Stock
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-horizontal xl-mlr10" ng-controller="stockController">
+            <form name="CreateBranchForm" ng-init="loadDropdowns()">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30">              
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Store</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Store--" ng-model="stock.BranchID"
+                                         s2-options="store.BranchID as store.Name for store in storeList" ng-change="loadStock()">
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Product Category</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Category--" ng-model="stock.CategoryID"
+                                         s2-options="data.CategoryID as data.Name for data in categoryList" ng-change="loadStock()">
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xl-mb30" style="margin-top: 20px;">
+                    <div class="div-info bold padding-10">Stock Info</div>
+                    <table st-table="stocks" st-safe-src="stockLists" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th colspan="2">
+                                    <div class="form-group" style="width: 217px;">
+                                        <div class="form-inner13">
+                                            <div class="right-col">
+                                                <select class="form-control" ng-model="Pagesize"
+                                                        ng-options="page.id as page.value for page in pageValueList" ng-change="changePageSize()">
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
+                                            <div class="clr"></div>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th colspan="4" style="padding-right: 0px;">
+                                    <input class="input-sm form-control topsearch" type="search" ng-model="Namevalue" ng-change="nameWiseSearch()" placeholder="Search" style="width: 200px; float: right" />
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Category</th>
+                                <th>Product</th>
+                                <th>Unit</th>
+                                <th>Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in stocks">
+                                <td>{{row.Category}}</td>
+                                <td>{{row.Product}}</td>
+                                <td>{{row.Unit}}</td>
+                                <td>{{row.Quantity}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="text-right" colspan="4">
+                                    <div class="pagination_content">
+                                        <span class="pull-left">
+                                            <p> Showing {{pageIndex}} to {{pageIndex}} of {{numPages}} entries</p>
+                                        </span>
+                                        <span class="pull-right">
+                                            <pagination total-items="totalCount" ng-change="pageChanged()" items-per-page="Pagesize" direction-links="true" ng-model="Pageindex" max-size="maxSize" class="pagination" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".datepicker").datepicker({
+        changeMonth: true,
+        autoclose: true,
+        changeYear: true
+    });
+</script>
+
+
+

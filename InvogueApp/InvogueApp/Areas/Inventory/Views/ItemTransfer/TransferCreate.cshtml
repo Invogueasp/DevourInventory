@@ -1,0 +1,175 @@
+﻿@{
+    ViewBag.Title = "Item Transfer";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+
+<div class="panel panel-transparent">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Item Transfer
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row form-horizontal xl-mlr10" ng-controller="transferController">
+            <form name="transferForm" ng-init="loadDropdowns()">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30">
+                    <input type="text" class="form-control hidden" ng-model="transfer.TransferID" readonly />
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Transfer No</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="transfer.TransferNO" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label for="ExpertiseAreaName" class="left-col control-label">Transfer Date</label>
+                            <div class="right-col">
+                                <div id="datepicker-component" class="input-group date">
+                                    <input type="text" class="form-control datepicker" ng-model="transfer.TransferDate" required>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">From</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Store--" ng-model="transfer.FromStoreID" s2-options="store.BranchID as store.Name for store in storeList" required>
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">To</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Store--" ng-model="transfer.ToStoreID" s2-options="store.BranchID as store.Name for store in storeList" required>
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                
+
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xl-mb30" style="margin-top: 20px;">
+                    <div class="div-info bold padding-10">Transfer Details</div>
+                    <table st-table="department" st-safe-src="departmentList" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Product</th>
+                                <th>Unit</th>
+                                <th width="10%">Quantity</th>
+                                <th>Remarks</th>
+                                <th style="width: 8%; text-align: right;">Action </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="details in transferDtls">
+                                <td>
+                                    <select2 style="width:200px" placeholder="--Select Category--" ng-model="details.CategoryID" s2-options="data.CategoryID as data.Name for data in categoryList">
+
+                                    </select2>
+                                </td>
+                                <td>
+                                    <select2 style="width:200px" placeholder="--Select Product--" @*ng-change="updateDetailsData(details)"*@ ng-model="details.ProductID" s2-options="data.ProductID as data.Name for data in productLists">
+
+                                    </select2>
+                                </td>
+                                <td>
+                                    <select2 style="width:200px" placeholder="--Select Unit--" ng-model="details.UnitID" s2-options="store.UnitID as store.Name for store in unitList" required>
+
+                                    </select2>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model=details.TransferQty />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="details.Remarks" />
+                                </td>
+                                <td align="right">
+                                    <button type="button" ng-click="removeStoreReqRow($index, details)" class="btn btn-danger btn-xs">
+                                        <i class="fa fa-close"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select2 style="width:200px" placeholder="--Select Category--" ng-model="details.CategoryID" ng-change="loadProduct(details.CategoryID)" s2-options="data.CategoryID as data.Name for data in categoryList">
+
+                                    </select2>
+                                </td>
+                                <td>
+                                    <select2 style="width:200px" placeholder="--Select Product--" @*ng-change="updateDetailsData(details)"*@ ng-model="details.ProductID" s2-options="data.ProductID as data.Name for data in productList">
+
+                                    </select2>
+                                </td>
+                                <td>
+                                    <select2 style="width:200px" placeholder="--Select Unit--" ng-model="details.UnitID" s2-options="store.UnitID as store.Name for store in unitList">
+
+                                    </select2>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model=details.TransferQty />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="details.Remarks" />
+                                </td>
+                                <td align="right">
+                                    <button type="button" ng-click="addStoreReqRow(details)" class="btn btn-primary btn-xs">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 frm-manage-pad2">
+                    <div class="form-group">
+                        <div class="form-inner12">
+                            <label for="fname" class="left-col control-label"></label>
+                            <div class="right-col mt-org1" style="text-align:right">
+                                <button type="button" class="btn btn-success custom-btn1" name="Submit" data-ng-click="saveTransfer()">Submit</button>
+                                <button type="button" class="btn btn-default custom-btn1" name="Clear" ng-click="Reload()"><i class="pg-close"></i> Clear</button>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(".datepicker").datepicker({
+        changeMonth: true,
+        autoclose: true,
+        changeYear: true
+    });
+</script>
+
+
+

@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "Product";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+<div class="panel panel-transparent" ng-controller="productController">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Product
+        </div>
+
+        <div class="pull-right m-t-15">
+            <div id="show-modal" class="btn btn-success custom-btn2">
+                <i class="fa fa-plus pr1"></i>
+                <a href="#!/ProductCreate" ng-click="removeCookies()">Add New</a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="panel-body">
+        <table st-table="product" st-safe-src="productList" class="table table-striped" ng-init="workPagination()">
+            <thead>
+                <tr>
+                    <td colspan="2">
+                        <div class="form-group" style="width: 217px;">
+                            <div class="form-inner13">
+                                <div class="right-col">
+                                    <select class="form-control" ng-model="Pagesize"
+                                            ng-options="page.id as page.value for page in pageValueList" ng-change="changePageSize()">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="clr"></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="10" style="padding-right: 0px;">
+                        <input st-search class="input-sm form-control topsearch" type="search" ng-model="Namevalue" ng-change="workPagination()" placeholder="Search" style="width: 200px; float: right" />
+                    </th>
+
+                </tr>
+            <tr>
+                <th class="hidden">Store Name</th>
+                <th class="hidden">Department Name</th>
+                <th>Category Name</th>
+                <th>Product Name</th>
+                <th class="hidden">Product Code</th>
+                <th class="hidden">Part Number</th>
+                <th>Unit</th>
+                <th class="hidden">Import Type</th>
+                <th>Status</th>
+                <th style="width: 10%">Action </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in product">
+                <td class="hidden">{{row.BranchName}}</td>
+                <td class="hidden">{{row.DepartmentName}}</td>
+                <td>{{row.CataGory}}</td>
+                <td>{{row.Name}}</td>
+                <td class="hidden">{{row.Code}}</td>
+                <td class="hidden">{{row.PartNumber}}</td>
+                <td>{{row.unitName}}</td>
+                <td class="hidden">{{row.ImportTypeID == 1? "Local":"Import"}}</td>
+                <td>{{row.Status == 1 ? "Active":"Inactive"}}</td>
+                <td align="center">
+                    <button type="button" ng-click="editRow(row)" class="btn btn-success btn-xs">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="text-right" colspan="5">
+                        <div class="pagination_content">
+                            <span class="pull-left">
+                                <p> Showing {{pageIndex}} to {{pageIndex}} of {{numPages}} entries</p>
+                            </span>
+                            <span class="pull-right">
+                                <pagination total-items="totalCount" ng-change="pageChanged()" items-per-page="Pagesize" direction-links="true" ng-model="Pageindex" max-size="maxSize" class="pagination" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+

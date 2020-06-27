@@ -1,0 +1,300 @@
+﻿@{
+    ViewBag.Title = "Purchase Order";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+<style>
+    tfoot.totalList {
+        border-bottom: 1px solid #ddd;
+    }
+
+        tfoot.totalList tr td {
+            border: none;
+        }
+</style>
+<div class="panel panel-transparent">
+    <div class="panel-heading">
+        <div class="panel-title">
+           Pending Purchase Order
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-horizontal xl-mlr10" ng-controller="purchaseOrderController">
+            <form name="PoForm" ng-init="loadDropdowns()">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30">
+                    <input type="text" class="form-control hidden" ng-model="purchaseOrder.POID">
+                    @*<div class="form-group">
+                            <div class="form-inner13">
+                                <label for="ExpertiseAreaName" class="left-col control-label">From Date</label>
+                                <div class="right-col">
+                                    <div id="datepicker-component" class="input-group date">
+                                        <input type="text" class="form-control datepicker" ng-model="purchaseOrder.FrmRequiredDate" ng-change="loadSpr()">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                                <div class="clr"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-inner13">
+                                <label for="ExpertiseAreaName" class="left-col control-label">To Date</label>
+                                <div class="right-col">
+                                    <div id="datepicker-component" class="input-group date">
+                                        <input type="text" class="form-control datepicker" ng-model="purchaseOrder.ToRequiredDate" ng-change="loadSpr()">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                                <div class="clr"></div>
+                            </div>
+                        </div>*@
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Requisition No</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Requisition No.--" ng-change="reqWisePendingPODtls()" ng-model="purchaseOrder.SPRID" s2-options="data.SPRID as data.SPRNO for data in pendingSprList" required>
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label for="ExpertiseAreaName" class="left-col control-label">Order No</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="purchaseOrder.PONO" readonly />
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label for="ExpertiseAreaName" class="left-col control-label">Order Date</label>
+                            <div class="right-col">
+                                <div id="datepicker-component" class="input-group date">
+                                    <input type="text" class="form-control datepicker" ng-model="purchaseOrder.PODate" required>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label for="ExpertiseAreaName" class="left-col control-label">Due Date</label>
+                            <div class="right-col">
+                                <div id="datepicker-component" class="input-group date">
+                                    <input type="text" class="form-control datepicker" ng-model="purchaseOrder.DueDate">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">From Store</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="-- Select Store--" ng-model="purchaseOrder.BranchID" s2-options="store.BranchID as store.Name for store in storeList" required>
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Department</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="purchaseOrder.Department" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Supplier</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--From Supplier--" ng-model="purchaseOrder.SupplierID" s2-options="data.SupplierID as data.SupplierName for data in supplierList" required>
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Raise By</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="purchaseOrder.UserFullName" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xl-mb30" style="margin-top: 20px;">
+                    <div class="div-info bold padding-10">Product Info</div>
+                    <table st-table="department" st-safe-src="departmentList" class="table table-striped">
+                        <thead>
+                            <tr>
+
+                                <th>Category</th>
+                                <th>Product</th>
+                                <th>Unit</th>
+                                <th>Stock Qty</th>
+                                <th>Approve Qty</th>
+                                <th>Remain Qty</th>
+                                <th width="10%">Order Qty</th>
+                                <th width="10%">Unit Rate</th>
+                                <th width="10%">Total</th>
+                                @*<th width="10%">Remarks</th>*@
+                                <th style="width: 6%; text-align: right;">Action </th>
+                            </tr>
+                        </thead>
+                        <tbody ng-show="hideData">
+                            <tr ng-repeat="row in sprDtls">
+
+                                <td>{{row.CategoryName}}</td>
+                                <td>{{row.ProductName}}</td>
+                                <td>{{row.UnitName}}</td>
+                                <td>{{row.StockQty}}</td>
+                                <td>{{row.ApprovedQtys}}</td>
+                                <td>{{row.ReaminQty}}</td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="row.OrderQty" ng-keyup="checkRemainQtyFrPending(row)" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="row.UnitRate" ng-keyup="checkRemainQtyFrPending(row)" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="row.LineTotal" readonly />
+                                </td>
+                                @*<td>
+                                        <input type="text" class="form-control" ng-model="row.Remarks" />
+                                    </td>*@
+                                <td align="right">
+                                    <button type="button" ng-click="addRow(row)" class="btn btn-success btn-xs">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    @*<button type="button" ng-click="removePORow($index, row)" class="btn btn-danger btn-xs">
+                                            <i class="fa fa-close"></i>
+                                        </button>*@
+                                </td>
+                            </tr>
+
+                        </tbody>
+                        <tfoot class="totalList" ng-show="hideData">
+                            <tr>
+                                <td colspan="8" style="text-align: right;">Grand Total</td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="total.GrandTotal" readonly />
+                                </td>
+
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+
+
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xl-mb30" style="margin-top: 20px;">
+                    <div class="div-info bold padding-10">Product List</div>
+                    <table st-table="department" st-safe-src="departmentList" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>SRPNO</th>
+                                <th>Category</th>
+                                <th>Product</th>
+                                <th>Unit</th>
+                                <th>Stock Qty</th>
+                                <th>Approve Qty</th>
+                                <th>Remain Qty</th>
+                                <th width="10%">Order Qty</th>
+                                <th width="10%">Unit Rate</th>
+                                <th width="10%">Total</th>
+                                @*<th width="10%">Remarks</th>*@
+                                <th style="width: 6%; text-align: right;">Action </th>
+                            </tr>
+                        </thead>
+                        <tbody ng-show="hideData">
+                            <tr ng-repeat="row in sprDtlss">
+                                <td>{{row.SPRNO}}</td>
+                                <td>{{row.CategoryName}}</td>
+                                <td>{{row.ProductName}}</td>
+                                <td>{{row.UnitName}}</td>
+                                <td>{{row.StockQty}}</td>
+                                <td>{{row.ApprovedQty}}</td>
+                                <td>{{row.ReaminQty}}</td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="row.OrderQty" ng-keyup="checkRemainQtyFrPending2(row)" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="row.UnitRate" ng-keyup="checkRemainQtyFrPending2(row)" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="row.LineTotal" readonly />
+                                </td>
+                                @*<td>
+                                        <input type="text" class="form-control" ng-model="row.Remarks" />
+                                    </td>*@
+                                <td align="right">
+                                    <button type="button" ng-click="removePORow2($index, row)" class="btn btn-danger btn-xs">
+                                        <i class="fa fa-close"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                        <tfoot class="totalList" ng-show="hideData">
+                            <tr>
+                                <td colspan="9" style="text-align: right;">Grand Total</td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="GrandTotal" readonly />
+                                </td>
+
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 frm-manage-pad2">
+                    <div class="form-group">
+                        <div class="form-inner12">
+                            <label for="fname" class="left-col control-label"></label>
+                            <div class="right-col mt-org1" style="text-align:right">
+                                <button type="button" class="btn btn-success custom-btn1" ng-disabled="disableBtn" name="Submit" data-ng-click="savePendingPurchase()">Submit</button>
+                                <button type="button" class="btn btn-default custom-btn1" name="Clear" ng-click="Reload()"><i class="pg-close"></i> Clear</button>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(".datepicker").datepicker({
+        changeMonth: true,
+        autoclose: true,
+        changeYear: true
+    });
+</script>
+
+
+

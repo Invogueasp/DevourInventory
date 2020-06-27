@@ -1,0 +1,431 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{46A5951C-9F5E-4BB7-9E0A-54FEC4A15E85}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DAL</RootNamespace>
+    <AssemblyName>DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\DataManager.cs" />
+    <Compile Include="Common\Utility.cs" />
+    <Compile Include="db\BasicInfoFrGetPassAndDC_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\DevourModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DevourModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\DevourModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\DevourModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DevourModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_BinCard.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_Brand.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_Category.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_Department.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_Issue.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_IssueDtls.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_Machine.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_MaterialReceive.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_MaterialReceiveDtls.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_Model.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_MRR.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_MRRDtls.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_MRR_HO.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_MRR_HODtls.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_OpeningStock.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_PO.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_PODtls.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_Product.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_ProductBin.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_ProductDepartment.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_ProductSize.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_QC.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_QCDtls.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_Return.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_ReturnDtls.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_ScrapReturn.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_ScrapReturnDtls.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_Size.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_SPR.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_SPRDtls.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_SR.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_SRDtls.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_Stock.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_StoreBin.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_StoreRack.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_SubCategory.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_Supplier.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_SupplierProduct.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_Transfer.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_TransferDtls.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_Type.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\INV_Unit.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\OrganizationCore.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\SEC_LoginStatus.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\SEC_Password.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\SEC_SecurityQuestion.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\SEC_UIModule.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\SEC_UIPage.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\SEC_UserActionMapping.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\SEC_UserGroup.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\SEC_UserInformation.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\SET_Company.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\SET_CompanyBranch.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\SET_Country.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\SET_Currency.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\SET_Department.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_helpdiagrams_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_IndentPR_Report_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_IssueList_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_IssueReport_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_ItemReturnDtlsForSTW_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_ItemReturnDtlsForWTS_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_ItemReturnDtls_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_MrrDtlsList_ForEdit_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_MrrDtlsList_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_MrrDtls_Report_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_MrrHODtlsListForMRS_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_MrrHODtlsList_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_MrrHODtls_Report_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_MRRSDtlsList2_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_MRRSDtlsList3_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_MRRSDtlsList_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_MRRSDtls_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_MrrStoreReport_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_MRS_For_QCDtlsList_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_PendingPurchaseOdrList_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\SP_ProductSearchPagination_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_ProductSearch_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_PurchaseOdrDtlsListForReport_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_PurchaseOdrDtlsList_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_PurchaseOdrList_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_PurchaseOrderAppList_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_QCDtlsList_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_QcList_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_QCReport_DtlsList_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_ReturnMRRSDtlsList_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_ScrapReturn_Report_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_SprFRPendingPO_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_SRandIssueNoteReportList_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_SRNOSearch_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_StockCheck_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_StockList2_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sp_StoreReturnMemoDtls_Result.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sysdiagram.cs">
+      <DependentUpon>DevourModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\CheckSessionData.cs" />
+    <Compile Include="Helper\CommonFunction.cs" />
+    <Compile Include="Helper\Encription.cs" />
+    <Compile Include="Helper\EncryptDecryptKey.cs" />
+    <Compile Include="Helper\ErrorViewModel.cs" />
+    <Compile Include="Helper\PermissionAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="db\DevourModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DevourModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="db\DevourModel.edmx.diagram">
+      <DependentUpon>DevourModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="db\DevourModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DevourModel.edmx</DependentUpon>
+      <LastGenOutput>DevourModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="db\DevourModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DevourModel.edmx</DependentUpon>
+      <LastGenOutput>DevourModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,278 @@
+﻿@{
+    ViewBag.Title = "Product";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+
+<div class="panel panel-transparent">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Product
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-horizontal xl-mlr10" ng-controller="productController">
+            <form name="productForm" ng-init="loadDropdowns()">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30">
+                    <input type="text" class="form-control hidden" ng-model="product.ProductID" readonly />      
+                    
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Factory</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Factory--" ng-model="product.BranchID" s2-options="store.BranchID as store.Name for store in branchList" required>
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>              
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Category</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Category--" ng-change="loadSubCategory()" ng-model="product.CategoryID" s2-options="data.CategoryID as data.Name for data in categoryList" required>
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Sub Category</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Sub Category--" ng-model="product.SubCategoryID" s2-options="data.SubCategoryID as data.Name for data in subCategoryList">
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Machine</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Machine--" ng-model="product.MachineID" ng-change="getMachineWiseModel(product.MachineID)"
+                                         s2-options="data.MachineID as data.Name for data in machineList" required>
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Model</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Model--" ng-model="product.ModelID"
+                                         s2-options="data.ModelID as data.Name for data in modelList" required>
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Product Name</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="product.Name" required/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Product Code</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="product.Code" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Part Number</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="product.PartNumber" />
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="form-group hidden" ng-show="luxPackage">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Brand</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Brand--" ng-model="product.BrandID" s2-options="store.BrandID as store.Name for store in brandList">
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Product Type</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Product Type--" ng-model="product.TypeID" s2-options="store.ProductTypeID as store.label for store in productRowFinishList" required>
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Unit</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Unit--" ng-model="product.UnitID" s2-options="store.UnitID as store.Name for store in unitList" required>
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Reorder Level</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="product.ReOrderLevel" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Minimum Level</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="product.MinimumLevel" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Lead Time (In Day)</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="product.LeadTime" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Import Type</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Import Type--" ng-model="product.ImportTypeID" s2-options="import.ImportTypeID as import.Name for import in importList" required>
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Country Of Origin</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Origin--" ng-model="product.CountryID" s2-options="country.CountryID as country.Name for country in countryList">
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Serial No</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="product.SerialNO" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Image</label>
+                            <div class="right-col">
+                                <input type="file" class="form-control" ng-model="product.ContactNO" ng-model-instant onchange="angular.element(this).scope().singleImageUpload(event)" />
+                                <div class="margin-top-15">
+                                    <img ng-src="{{stepsModel}}" width="100" height="100" ng-show="createImage" />
+                                    <div ng-repeat="row in productImg">
+                                        <img width="100" height="100" src="~/Content/product_Img/product/Image/{{row.FullName}}/{{row.Name}}" ng-show="dbImage" />
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Status</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Status--" ng-model="product.Status" s2-options="status.id as status.label for status in statusList" required>
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-inner12">
+                            <label for="fname" class="left-col control-label"></label>
+                            <div class="right-col mt-org1" style="text-align:right">
+                                <button type="button" class="btn btn-success custom-btn1" name="Submit" data-ng-click="saveProduct()">Submit</button>
+                                <button type="button" class="btn btn-default custom-btn1" name="Clear" ng-click="clearData()"><i class="pg-close"></i> Clear</button>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30 hidden">
+                    <div class="div-info bold padding-10">Use Department :</div>
+                    <table st-table="list" st-safe-src="deptList" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%; text-align: center" st-sort="Address">Select</th>
+                                <th style="text-align: center" st-sort="UserFullName">Department Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in list">
+                                <td style="text-align: center">
+                                    <div class="checkbox_vertical">
+                                        <div class="checkbox check-primary checkbox-circle">
+                                            <input type="checkbox" id="checkbox{{$index}}" ng-model="row.selected" ng-change="addDept(row)">
+                                            <label for="checkbox{{$index}}"></label>
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td style="text-align: center">{{row.Name}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                @*<div class="col-xs-6 col-sm-6 col-md-6 col-lg-12 frm-manage-pad2">
+                    <div class="form-group">
+                        <div class="form-inner12">
+                            <label for="fname" class="left-col control-label"></label>
+                            <div class="right-col mt-org1" style="text-align:right">
+                                <button type="button" class="btn btn-success custom-btn1" name="Submit" data-ng-click="saveProduct()">Submit</button>
+                                <button type="button" class="btn btn-default custom-btn1" name="Clear" ng-click="clearData()"><i class="pg-close"></i> Clear</button>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                </div>*@
+            </form>
+        </div>
+    </div>
+</div>
+
+
+

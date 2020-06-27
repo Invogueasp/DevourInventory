@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d8032196f1d64879b2bd154df3f1869a" Name="Diagram1">
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_BinCard" Width="1.5" PointX="11.25" PointY="38.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_Brand" Width="1.5" PointX="3.75" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_Category" Width="1.5" PointX="0.75" PointY="38" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_Department" Width="1.5" PointX="9" PointY="46.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_Issue" Width="1.5" PointX="0.75" PointY="33.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_IssueDtls" Width="1.5" PointX="3" PointY="38.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_Machine" Width="1.5" PointX="6.75" PointY="34" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_MaterialReceive" Width="1.5" PointX="3.75" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_MaterialReceiveDtls" Width="1.5" PointX="6" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_Model" Width="1.5" PointX="6.75" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_MRR" Width="1.5" PointX="14.75" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_MRR_HO" Width="1.5" PointX="0.75" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_MRR_HODtls" Width="1.5" PointX="3" PointY="33.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_MRRDtls" Width="1.5" PointX="5.25" PointY="43.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_OpeningStock" Width="1.5" PointX="14.25" PointY="38.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_PO" Width="1.5" PointX="1.5" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_PODtls" Width="1.5" PointX="3" PointY="43" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_Product" Width="1.5" PointX="9" PointY="35.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_ProductBin" Width="1.5" PointX="11.25" PointY="35.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_ProductDepartment" Width="1.5" PointX="11.25" PointY="43.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_ProductSize" Width="1.5" PointX="14.25" PointY="35.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_QC" Width="1.5" PointX="3.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_QCDtls" Width="1.5" PointX="6" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_Return" Width="1.5" PointX="12" PointY="54.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_ReturnDtls" Width="1.5" PointX="14.25" PointY="43" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_ScrapReturn" Width="1.5" PointX="15" PointY="48.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_ScrapReturnDtls" Width="1.5" PointX="17.25" PointY="38.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_Size" Width="1.5" PointX="12" PointY="24.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_SPR" Width="1.5" PointX="1.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_SPRDtls" Width="1.5" PointX="17.25" PointY="33.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_SR" Width="1.5" PointX="1.5" PointY="81.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_SRDtls" Width="1.5" PointX="11.25" PointY="50" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_Stock" Width="1.5" PointX="17.25" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_StoreBin" Width="1.5" PointX="9" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_StoreRack" Width="1.5" PointX="6.75" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_SubCategory" Width="1.5" PointX="3" PointY="65.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_Supplier" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_SupplierProduct" Width="1.5" PointX="11.25" PointY="32" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_Transfer" Width="1.5" PointX="12" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_TransferDtls" Width="1.5" PointX="14.25" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_Type" Width="1.5" PointX="6.75" PointY="47.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.INV_Unit" Width="1.5" PointX="6.75" PointY="50.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.OrganizationCore" Width="1.5" PointX="8.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.SEC_LoginStatus" Width="1.5" PointX="3.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.SEC_Password" Width="1.5" PointX="1.5" PointY="62" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.SEC_SecurityQuestion" Width="1.5" PointX="8.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.SEC_UIModule" Width="1.5" PointX="3.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.SEC_UIPage" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.SEC_UserActionMapping" Width="1.5" PointX="3.75" PointY="71.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.SEC_UserGroup" Width="1.5" PointX="1.5" PointY="77.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.SEC_UserInformation" Width="1.5" PointX="1.5" PointY="69.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.SET_Company" Width="1.5" PointX="1.5" PointY="56.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.SET_CompanyBranch" Width="1.5" PointX="1.5" PointY="48.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.SET_Country" Width="1.5" PointX="1.5" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.SET_Currency" Width="1.5" PointX="1.5" PointY="30.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.SET_Department" Width="1.5" PointX="5.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Devour_InventoryModel.sysdiagram" Width="1.5" PointX="7.75" PointY="12.875" IsExpanded="true" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_BinCard_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Brand_CountryID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_IssueDtls_CatID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_MaterialRecordDtls_CID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_MRR_HODtls_CID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_PODtls_CID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Product_CategoryID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_ReturnDtls_CID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_ScrapReturnDtls_CID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SPRDtls_CategoryID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SRDtls_CategoryID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Stock_CID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SubCategory_SCID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SupplierProduct_CategoryID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_TransferDtls_CID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_ProductDepartment_DID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Issue_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Issue_SRID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_IssueDtls_IssueID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_IssueDtls_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_IssueDtls_UnitID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Model_MachineID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Product_MachineID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_MaterialReceive_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_MaterialRecord_POID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_MaterialRecordDtls_MRID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Product_MID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_MRR_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_MRR_POID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_MRR_SupplierID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_MRR_HO_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_MRR_HO_POID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_MRR_HO_SID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_MRR_HODtls_MRRID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_MRR_HODtls_PID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_MRR_HODtls_UID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_MRRHODtls_PODtlsID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_MRRDtls_PODID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_OpeningStock_BranchID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_OpeningStock_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_PO_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_PO_SPRID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_PO_SupplierID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_PODtls_POID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_PODtls_PID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_PODtls_SPRDtlsID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_PODtls_UID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Product_BranchID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Product_UnitID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Product_UnitTypeID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_ProductBin_PID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_ProductDepartment_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_ProductSize_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_ReturnDtls_PID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_ScrapReturnDtls_PID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SPRDtls_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SRDtls_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Stock_PID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SupplierProduct_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_TransferDtls_PID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_ProductBin_SBID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_ProductSize_SizeID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_QCDtls_QcID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Return_FSID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Return_FWID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Return_TSID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Return_TWID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_ReturnDtls_ReturnID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_ReturnDtls_T" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_ReturnDtls_UID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_ScrapReturnDtls_SRID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_ScrapReturnDtls_UID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SPR_BID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SPR_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SPRDtls_SPRID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SPRDtls_UnitID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SR_BID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SR_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SRDtls_SRID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SRDtls_CID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SRDtls_UnitID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Stock_BID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Stock_UID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_StoreBin_BID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_StoreBin_RackID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_StoreRack_BID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Supplier_CountryID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_Supplier_CurrencyID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_SupplierProduct_SupplierID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_TransferDtls_TransferID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_INV_TransferDtls_UID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_SEC_Password_SEC_UserInformation_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_SEC_UserInformation_SEC_Password_PasswordID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_SEC_UiPage_SEC_UiModule" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_SEC_UserActionMapping_SEC_UserInformation_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_SEC_UserGroup_SEC_UserInformation_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_SEC_UserInformation_SEC_UserGroup_UserGroupID" ManuallyRouted="false" />
+        <AssociationConnector Association="Devour_InventoryModel.FK_SET_CBranch_CompanyID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Inventory";
+    Layout = null;
+}
+@if (Session["logInSession"] != "false")
+{
+    if (Session["logInSession"] == "true")
+    {
+        <div class="container-fluid container-fixed-lg">
+            <div class="page-content-wrapper ">
+                <div class="content sm-gutter">
+                    <div class="container-fluid padding-25 sm-padding-10">
+                        <div class="row ">
+                            <div class="hidden">
+                                <div class="col-md-6 col-xlg-6">
+                                    <div class="border-parent">
+                                        <div id="chartContainer" style="height:400px; overflow-y:hidden; overflow-x:auto"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xlg-6">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+}
+else
+{
+    @Html.Partial("_Login")
+}
+

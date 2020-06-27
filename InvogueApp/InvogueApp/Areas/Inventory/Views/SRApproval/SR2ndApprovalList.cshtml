@@ -1,0 +1,178 @@
+﻿@{
+    ViewBag.Title = "Store Requisition 2nd Approval";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+<div class="panel panel-transparent" ng-controller="srApprovalController">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Store Requisition 2nd Approval
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="panel-body" ng-init="loadStore2ndAppReq()">
+        <table st-table="data" st-safe-src="store2ndAppReqList" class="table table-striped">
+            <thead>
+                <tr>
+                    <th colspan="8" style="padding-right: 0px;">
+                        <input st-search class="input-sm form-control topsearch" type="search" placeholder="Search" style="width: 200px; float: right" />
+                    </th>
+                </tr>
+                <tr>
+                    <th>Req. No</th>
+                    <th>Req. Date</th>
+                    <th>Required Date</th>
+                    <th>Store</th>
+                    <th>Status</th>
+                    <th style="width: 10%; text-align: center;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in data" ng-class="{'font_color': row.Status === 'A'}">
+                    <td>{{row.SRNO}}</td>
+                    <td>{{row.RequisitionDate}}</td>
+                    <td>{{row.RequiredDate}}</td>
+                    <td>{{row.Name}}</td>
+                    <td>{{row.SecondStatus}}</td>
+                    <td align="center">
+                        <button type="button" ng-click="viewSRApprovalRow(row)" class="btn btn-primary btn-xs">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="Page-align">
+                        <div st-pagination="" st-items-by-page="itemsByPage"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+
+    </div>
+
+    <!-- Shift Modal start -->
+    <div class="modal fade stick-up" my-modal my-modal-is-open="isModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" style="width: 1000px;">
+            <div class="modal-content">
+                <div class="modal-header clearfix text-left">
+                    <button type="button" class="close" ng-click="modalClose()" aria-hidden="true">
+                        <i class="pg-close fs-14"></i>
+                    </button>
+                    <div class="bold">Store Requisition  2nd Approval</div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal xl-mlr10" style="margin: 15px 0;">
+                        <form>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30" ng-init="loadDropdowns()">
+                                <input type="text" class="form-control hidden" ng-model="storeReq.SRID" readonly />
+                                <div class="form-group">
+                                    <div class="form-inner13">
+                                        <label class="left-col control-label">Requisition No</label>
+                                        <div class="right-col">
+                                            <input type="text" class="form-control" ng-model="storeReq.SRNO" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-inner13">
+                                        <label for="ExpertiseAreaName" class="left-col control-label">Requisition Date</label>
+                                        <div class="right-col">
+                                            <div id="datepicker-component" class="input-group date">
+                                                <input type="text" class="form-control datepicker" ng-model="storeReq.RequisitionDate" readonly>
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="clr"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-inner13">
+                                        <label class="left-col control-label">Store</label>
+                                        <div class="right-col">
+                                            <select2 style="width:100%" placeholder="--Select Store--" ng-model="storeReq.BranchID" s2-options="store.BranchID as store.Name for store in storeList" required readonly>
+
+                                            </select2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-inner13">
+                                        <label for="ExpertiseAreaName" class="left-col control-label">Required Date</label>
+                                        <div class="right-col">
+                                            <div id="datepicker-component" class="input-group date">
+                                                <input type="text" class="form-control datepicker" ng-model="storeReq.RequiredDate" readonly>
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="clr"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-inner13">
+                                        <label class="left-col control-label">Raise By</label>
+                                        <div class="right-col">
+                                            <input type="text" class="form-control" ng-model="storeReq.UserName" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Product</th>
+                                <th>Unit</th>
+                                <th>Stock Qty</th>
+                                <th>Req. Qty</th>
+                                <th width="20%">App. Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in storeReqDtls">
+                                <td>{{row.CategoryName}}</td>
+                                <td>{{row.ProductName}}</td>
+                                <td>{{row.UnitName}}</td>
+                                <td>{{row.StockQty}}</td>
+                                <td>{{row.ReqQty}}</td>
+                                <td><input type="text" class="form-control" ng-model="row.ApprovedQty" ng-keyup="approveQty(row)" /></td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer" ng-show="end3AppBtn">
+                    @*<button type="button" class="btn btn-success" ng-disabled="disabledButton" ng-click="saveStoreReq()">{{button}}</button>*@
+                    <button type="button" class="btn btn-success" ng-disabled="disabledButton" ng-click="SecondappsaveStoreReq()">Approve</button>
+                    <button type="button" class="btn btn-danger" ng-click="modalClose()" aria-hidden="true">Cancel</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>

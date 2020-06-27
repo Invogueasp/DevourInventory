@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "Product Upload";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+<div class="panel panel-transparent">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Product Upload
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-horizontal xl-mlr10" ng-controller="productController">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30">
+                <form name="productUploadForm">
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Product File</label>
+                            <div class="right-col">
+                                <input type="file" name="file" class="form-control" onchange="angular.element(this).scope().selectApplicationFile(this.files)" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <div class="form-inner12">
+                                <label for="fname" class="left-col control-label"></label>
+                                <div class="right-col mt-org1" style="text-align: right">
+                                    <button type="button" class="btn btn-success custom-btn1" name="Submit" data-ng-click="uploadProduct()">Upload</button>
+                                    <button type="button" class="btn btn-default custom-btn1" name="Clear" ng-click="Reload()"><i class="pg-close"></i> Clear</button>
+                                </div>
+                                <div class="clr"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <table st-table="branch" st-safe-src="productList" class="table table-striped" ng-init="loadProduct()">
+                    <thead>
+                        <tr>
+                            <th colspan="8" style="padding-right: 0px;">
+                                <input st-search class="input-sm form-control topsearch" type="search" placeholder="Search" style="width: 200px; float: right" />
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th>Category Name</th>
+                            <th>Product Name</th>
+                            <th>Product Code</th>
+                            <th>Unit</th>
+                            <th>Status</th>
+                            <th style="width: 10%">Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in branch">
+                            <td>{{row.CataGory}}</td>
+                            <td>{{row.Name}}</td>
+                            <td>{{row.Code}}</td>
+                            <td>{{row.unitName}}</td>
+                            <td>{{row.Status == 1 ? "Active":"Inactive"}}</td>
+                            <td align="center">
+                                <button type="button" ng-click="editRow(row)" class="btn btn-success btn-xs">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6" class="Page-align">
+                                <div st-pagination="" st-items-by-page="itemsByPage"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

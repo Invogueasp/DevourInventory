@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Category";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+
+<div class="panel panel-transparent">
+    <div class="panel-heading">
+        <div class="panel-title">
+           Sub Category
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-horizontal xl-mlr10" ng-controller="subCategoryController">
+            <form name="subCategoryForm" ng-init="loadDropdowns()">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30">
+                    <input type="text" class="form-control hidden" ng-model="subCategory.SubCategoryID" readonly />
+
+                  
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Category</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="--Select Category--" ng-model="subCategory.CategoryID" s2-options="data.CategoryID as data.Name for data in categoryList">
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Sub Category</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="subCategory.Name" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Code</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="subCategory.Code" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Status</label>
+                            <div class="right-col">
+                                <select class="form-control" ng-model="subCategory.Status" required ng-options="status.id as status.label for status in statusList">
+                                    <option value="">--Select Status--</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 frm-manage-pad2">
+                        <div class="form-group">
+                            <div class="form-inner12">
+                                <label for="fname" class="left-col control-label"></label>
+                                <div class="right-col mt-org1" style="text-align:right">
+                                    <button type="button" class="btn btn-success custom-btn1" name="Submit" data-ng-click="saveSubCategory()">Submit</button>
+                                    <button type="button" class="btn btn-default custom-btn1" name="Clear" ng-click="clearData()"><i class="pg-close"></i> Clear</button>
+                                </div>
+                                <div class="clr"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+

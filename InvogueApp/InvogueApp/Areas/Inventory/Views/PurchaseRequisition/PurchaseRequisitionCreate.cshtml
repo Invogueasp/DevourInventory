@@ -1,0 +1,278 @@
+﻿@{
+    ViewBag.Title = "Store Purchase Requisition";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+<style>
+    
+   
+        .cust_dropdown {
+            position: absolute;
+            display: block;
+            width: 100%;
+            float: left;
+            list-style: none;
+            text-shadow: none;
+            -webkit-box-shadow: 0px 0px 5px rgba(98,98,98,0.2);
+            box-shadow: 0px 0px 5px rgba(98,98,98,0.2);
+            border: none;
+            border-radius: 3px;
+            font-size: 13px;
+            margin: 0;
+            background: #fafafa;
+            min-width: 50px;
+            z-index: 700 !important;
+            padding: 0;
+        }
+
+            .cust_dropdown li {
+                display: block;
+                width: 100%;
+                padding: 10px;
+                clear: both;
+                font-weight: normal;
+                color: #212529;
+                white-space: unset;
+                background-color: transparent;
+                border: 0;
+                cursor: pointer;
+            }
+
+                .cust_dropdown li:hover {
+                    background: #d1d5d8;
+                }
+
+            .cust_intput:before {
+                display: inline-block;
+                width: 0;
+                height: 0;
+                margin-right: .25rem;
+                margin-left: .25rem;
+                vertical-align: middle;
+                content: "";
+                border-top: .3em solid #000;
+                border-right: .3em solid transparent;
+                border-left: .3em solid transparent;
+            }
+                .ul{max-height:200px; width:18%;}
+ .ul{overflow:hidden; overflow-y:scroll;
+
+ }
+ .select2-drop {
+    width: 320px!important;
+}
+</style>
+<div class="panel panel-transparent">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Store Purchase Requisition
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-horizontal xl-mlr10" ng-controller="sprController">
+            <form name="sprForm" ng-init="loadDropdowns()">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30">
+                    <input type="text" class="form-control hidden" ng-model="storePR.SPRID" readonly />
+                   
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Requisition No</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model=storePR.SPRNO  readonly/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label for="ExpertiseAreaName" class="left-col control-label">Requisition Date</label>
+                            <div class="right-col">
+                                <div id="datepicker-component" class="input-group date">
+                                    <input type="text" class="form-control datepicker" ng-model="storePR.SPRDate" required>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label for="ExpertiseAreaName" class="left-col control-label">Required Date</label>
+                            <div class="right-col">
+                                <div id="datepicker-component" class="input-group date">
+                                    <input type="text" class="form-control datepicker" ng-model="storePR.RequiredDate" required>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">From Store</label>
+                            <div class="right-col">
+                                <select2 style="width:100%" placeholder="-- Select Store--" ng-model="storePR.BranchID" s2-options="store.BranchID as store.Name for store in storeList" required>
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Raise By</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="storePR.UserFullName" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Department</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="storePR.Department" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xl-mb30" style="margin-top: 20px;">
+                    <div class="div-info bold padding-10">Requisition Details</div>
+                    <table st-table="department" st-safe-src="departmentList" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th width="20%">Category</th>
+                                <th width="20%">Product Name</th>
+                                <th>Unit</th>
+                                <th>Stock Qty</th>
+                                <th width="10%">Quantity</th>
+                                <th>Remarks</th>
+                                <th style="width: 10%; text-align: right;">Action </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="details in sprDtls">
+                                <td>
+                                    <select2 style="width:190px" placeholder="--Select Category--" ng-model="details.CategoryID" s2-options="data.CategoryID as data.Name for data in categoryList">
+
+                                    </select2>
+                                </td>
+                                <td>
+                                    <select2 style="width:190px" placeholder="" ng-model="details.ProductID" s2-options="data.ProductID as data.Name for data in productLists">
+
+                                    </select2>
+                                </td>
+                                <td>
+                                    <select2 style="width:150px" placeholder="--Select Unit--" ng-model="details.UnitID" s2-options="store.UnitID as store.Name for store in unitList" required>
+
+                                    </select2>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model=details.Quantity readonly />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model=details.ReqQty />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="details.Remarks" />
+                                </td>
+                                <td align="right">
+                                    <button type="button" ng-click="removeStoreReqRow($index, details)" class="btn btn-danger btn-xs">
+                                        <i class="fa fa-close"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select2 style="width:190px" placeholder="--Select Category--" ng-model="details.CategoryID" @*ng-change="loadCategoryWiseProduct(details.CategoryID)"*@ s2-options="data.CategoryID as data.Name for data in categoryList">
+
+                                    </select2>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <div class="form-inner13">
+                                            @*<label class="left-col control-label"></label>*@
+                                            <div class="right-col">
+                                                <input type='text' style="width:190px;margin-top: -8px;"
+                                                       ng-change='searchUnitDropDown()'
+                                                       ng-click='searchboxClicked($event);'
+                                                       ng-model='unitName'
+                                                       placeholder='' class="form-control cust_intput" >
+                                                <ul id='cproductList' class="cust_dropdown ul" style="width:260px">
+                                                    <li ng-click='setValue($index, $event,unit)'
+                                                        ng-repeat="unit in cproductList">
+                                                        {{ unit.Name }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <select2 style="width:150px" placeholder="--Select Unit--" ng-model="details.UnitID" s2-options="store.UnitID as store.Name for store in unitList" readonly>
+
+                                    </select2>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model=details.Quantity readonly />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model=details.ReqQty />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="details.Remarks" />
+                                </td>
+                                <td align="right">
+                                    <button type="button" ng-click="addStoreReqRow(details)" class="btn btn-primary btn-xs">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <button type="button" ng-click="clearLastData()" style="background-color: #d81e1ede;border: #d81e1ede;" class="btn btn-primary btn-xs">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 frm-manage-pad2">
+                    <div class="form-group">
+                        <div class="form-inner12">
+                            <label for="fname" class="left-col control-label"></label>
+                            <div class="right-col mt-org1" style="text-align:right">
+                                <button type="button" class="btn btn-success custom-btn1" name="Submit" data-ng-click="saveSpr()">Submit</button>
+                                <button type="button" class="btn btn-default custom-btn1" name="Clear" ng-click="Reload()"><i class="pg-close"></i> Clear</button>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(".datepicker").datepicker({
+        changeMonth: true,
+        autoclose: true,
+        changeYear: true
+    });
+</script>
+
+
+

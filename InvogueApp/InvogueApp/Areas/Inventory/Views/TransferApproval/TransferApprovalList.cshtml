@@ -1,0 +1,172 @@
+﻿@{
+    ViewBag.Title = "Transfer Approval";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+<div class="panel panel-transparent" ng-controller="transferAppController">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Transfer Approval
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="panel-body">
+
+        <table st-table="data" st-safe-src="transferList" class="table table-striped" ng-init="loadTransfer()">
+            <thead>
+                <tr>
+                    <th colspan="8" style="padding-right: 0px;">
+                        <input st-search class="input-sm form-control topsearch" type="search" placeholder="Search" style="width: 200px; float: right" />
+                    </th>
+
+                </tr>
+                <tr>
+                    <th>Transfer No</th>
+                    <th>Transfer Date</th>
+                    <th>From Store</th>
+                    <th>To Store</th>
+                    <th style="width: 10%">Action </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in data">
+                    <td>{{row.TransferNO}}</td>
+                    <td>{{row.TransferDate}}</td>
+                    <td>{{row.FromStore}}</td>
+                    <td>{{row.ToStore}}</td>
+                    <td align="center">
+                        <button type="button" ng-click="viewTransApprovalRow(row)" class="btn btn-primary btn-xs">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="Page-align">
+                        <div st-pagination="" st-items-by-page="itemsByPage"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+
+
+
+    </div>
+
+    <!-- Shift Modal start -->
+    <div class="modal fade stick-up" my-modal my-modal-is-open="isModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" style="width: 1000px;">
+            <div class="modal-content">
+                <div class="modal-header clearfix text-left">
+                    <button type="button" class="close" ng-click="modalClose()" aria-hidden="true">
+                        <i class="pg-close fs-14"></i>
+                    </button>
+                    <div class="bold">Transfer Approval</div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal xl-mlr10" style="margin: 15px 0;">
+                        <form name="transferdtlsForm" ng-init="loadDropdowns()">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30">
+                                <div class="form-group">
+                                    <div class="form-inner13">
+                                        <label class="left-col control-label">Transfer No</label>
+                                        <div class="right-col">
+                                            <input type="text" class="form-control" ng-model="transferApp.TransferNO" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-inner13">
+                                        <label for="ExpertiseAreaName" class="left-col control-label">Transfer Date</label>
+                                        <div class="right-col">
+                                            <div id="datepicker-component" class="input-group date">
+                                                <input type="text" class="form-control datepicker" ng-model="transferApp.TransferDate" disabled>
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="clr"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-inner13">
+                                        <label class="left-col control-label">From Store</label>
+                                        <div class="right-col">
+                                            <select2 style="width:100%" placeholder="--Select Store--" ng-model="transferApp.FromStoreID" s2-options="store.BranchID as store.Name for store in storeList" required readonly>
+
+                                            </select2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-inner13">
+                                        <label class="left-col control-label">To Store</label>
+                                        <div class="right-col">
+                                            <select2 style="width:100%" placeholder="--Select Store--" ng-model="transferApp.ToStoreID" s2-options="store.BranchID as store.Name for store in storeList" required readonly>
+
+                                            </select2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Product</th>
+                                <th>Unit</th>
+                                <th width="20%">Qty</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in transferDtls">
+                                <td>{{row.CategoryName}}</td>
+                                <td>{{row.ProductName}}</td>
+                                <td>{{row.UnitName}}</td>
+                                <td>{{row.TransferQty}}</td>
+                                <td><input type="text" class="form-control" ng-model="row.ApprovalRemarks" ng-model-onblur ng-change="apptransferRemerks(row)" /></td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" ng-click="saveTransferApp()" aria-hidden="true">Approved</button>
+                    <button type="button" class="btn btn-danger" ng-click="modalClose()" aria-hidden="true">Cancel</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+<script>
+
+    $(".datepicker").datepicker({
+        changeMonth: true,
+        autoclose: true,
+        changeYear: true
+    });
+</script>

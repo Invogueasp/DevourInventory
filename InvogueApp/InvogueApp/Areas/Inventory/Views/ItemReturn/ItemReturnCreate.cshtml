@@ -1,0 +1,282 @@
+﻿@{
+    ViewBag.Title = "Item Return";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+<style>
+    tfoot.totalList {
+        border-bottom: 1px solid #ddd;
+    }
+
+        tfoot.totalList tr td {
+            border: none;
+        }
+</style>
+<div class="panel panel-transparent">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Item Return
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-horizontal xl-mlr10" ng-controller="itemReturnController">
+            <form name="itemReturnForm" ng-init="loadDropdowns()">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30">
+                    <input type="text" class="form-control hidden" ng-model="itemReturn.ReturnID" readonly />
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Return No</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="itemReturn.ReturnNO" readonly/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label for="ExpertiseAreaName" class="left-col control-label">Return Date</label>
+                            <div class="right-col">
+                                <div id="datepicker-component" class="input-group date">
+                                    <input type="text" class="form-control datepicker" ng-model="itemReturn.ReturnDate" required>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Return Type</label>
+                            <div class="right-col">
+                                <select class="form-control" ng-model="itemReturn.ReturnType" ng-change="showReqWishData()" required>
+                                    <option value="">--Select Return Type--</option>
+                                    <option value=1>Warehouse to Supplier</option>
+                                    @*<option value=2>Store to Warehouse</option>
+                                    <option value=3>Store to Store</option>*@
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="whToS" style="margin: 15px 0;">
+                        <div class="bold padding-10">WAREHOUSE TO SUPPLIER</div>
+                        <div class="form-group">
+                            <div class="form-inner13">
+                                <label class="left-col control-label">From Warehouse</label>
+                                <div class="right-col">
+                                    <select2 style="width:100%" placeholder="--From Warehouse--" ng-model="itemReturn.FromWarehouseID" ng-change="getPono()" s2-options="branch.BranchID as branch.Name for branch in warehouseList" required>
+
+                                    </select2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-inner13">
+                                <label class="left-col control-label">To Supplier</label>
+                                <div class="right-col">
+                                    <select2 style="width:100%" placeholder="--To Supplier--" ng-model="itemReturn.ToSupplierID" s2-options="store.SupplierID as store.SupplierName for store in supplierList" required readonly>
+
+                                    </select2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-inner13">
+                                <label class="left-col control-label">QC No</label>
+                                <div class="right-col">
+                                    <select2 style="width:100%" placeholder="--QC No--" ng-model="itemReturn.QCID" s2-options="store.QCID as store.QCNO for store in purchaseOrderLists" @*ng-change="getPodtls()"*@ ng-change="reqWisePODtls()" required>
+
+                                    </select2>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-xs" ng-click="searchData()" style="float: right;">Load</button>
+                    </div>
+                    <div ng-show="sToWh" style="margin: 15px 0;">
+                        <div class="bold padding-10">STORE TO WAREHOUSE</div>
+                        <div class="form-group">
+                            <div class="form-inner13">
+                                <label class="left-col control-label">From Store</label>
+                                <div class="right-col">
+                                    <select2 style="width:100%" placeholder="--From Store--" ng-model="itemReturn.FromStoreID" ng-change="storeWiseReq()" s2-options="branch.BranchID as branch.Name for branch in warehouseList" required>
+
+                                    </select2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-inner13">
+                                <label class="left-col control-label">To Warehouse</label>
+                                <div class="right-col">
+                                    <select2 style="width:100%" placeholder="--To Warehouse--" ng-model="itemReturn.ToWarehouseID" s2-options="branch.BranchID as branch.Name for branch in warehouseList" required>
+
+                                    </select2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-inner13">
+                                <label class="left-col control-label">Requisition No</label>
+                                <div class="right-col">
+                                    <select2 style="width:100%" placeholder="--Requisition No--" ng-model="itemReturn.SRID" ng-change="issueDataList(itemReturn.SRID)" s2-options="store.SRID as store.SRNO for store in storeWiseReqList" required>
+
+                                    </select2>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="button">
+                            <button type="button" class="btn btn-primary btn-xs" ng-click="searchData()" style="float: right;">Load</button>
+                        </div>
+                      
+                    </div>
+                    <div ng-show="sToS" style="margin: 15px 0;">
+                        <div class="bold padding-10" style=" font-family:'Montserrat';">STORE TO STORE</div>
+                        <div class="form-group">
+                            <div class="form-inner13">
+                                <label class="left-col control-label">From Store</label>
+                                <div class="right-col">
+                                    <select2 style="width:100%" placeholder="--Select Store--" ng-model="itemReturn.FromStoreID" s2-options="branch.BranchID as branch.Name for branch in warehouseList" required>
+
+                                    </select2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-inner13">
+                                <label class="left-col control-label">To Store</label>
+                                <div class="right-col">
+                                    <select2 style="width:100%" placeholder="--Select Store--" ng-change="storeWiseTransfer()" ng-model="itemReturn.ToStoreID" s2-options="branch.BranchID as branch.Name for branch in warehouseList" required>
+
+                                    </select2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-inner13">
+                                <label class="left-col control-label">transfer No</label>
+                                <div class="right-col">
+                                    <select2 style="width:100%" placeholder="--Transfer No--" ng-model="itemReturn.TransferID" ng-change="transferDtlsbyId(itemReturn.TransferID)" s2-options="store.TransferID as store.TransferNO for store in transferList" required>
+
+                                    </select2>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-xs" ng-click="searchData()" style="float: right;">Load</button>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xl-mb30" style="margin-top: 20px;">
+                    <div class="div-info bold padding-10">Issue Info</div>
+                    <table st-table="department" st-safe-src="departmentList" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Product</th>
+                                <th>Unit</th>
+                                <th>Received Qty</th>
+                                <th style="width: 10%;">Return Qty</th>
+                                <th style="width: 15%;">Product Type</th>
+                                <th style="width: 20%;">Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-show="hideData">
+                          
+
+                            <tr ng-repeat="row in transferDtlsList" >
+                                <td>{{row.CategoryName}}</td>
+                                <td>{{row.ProductName}}</td>
+                                <td>{{row.UnitName}}</td>
+                                <td>{{row.TransferQty}}</td>
+                                <td><input type="text" class="form-control" ng-model="row.ReturnQty" ng-keyup="itemReturnRemerks(row)" /></td>
+                                <td>
+
+                                    <select2 style="width:200px" placeholder="--Select ProductType--" ng-model="row.ProductType" s2-options="data.ProductType as data.label for data in productTypeList">
+
+                                    </select2>
+
+                                    @*<select class="form-control" ng-model="row.ProductType">
+                                        <option value="">--Select Product Type--</option>
+                                        <option value="0">Sound</option>
+                                        <option value="1">Damage</option>
+                                    </select>*@
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="row.Remarks" ng-model-onblur ng-change="itemReturnRemerks(row)" />
+                                </td>
+                            </tr>
+                       
+                            <tr ng-repeat="row in issueDtlsList">
+                                <td>{{row.CategoryName}}</td>
+                                <td>{{row.ProductName}}</td>
+                                <td>{{row.UnitName}}</td>
+                                <td>{{row.IssueQty}}</td>
+                                <td><input type="text" class="form-control" ng-model="row.ReturnQty" ng-keyup="itemReturnRemerks(row)" /></td>
+                                <td>
+                                    <select2 style="width:200px" placeholder="--Select ProductType--" ng-model="row.ProductType" s2-options="data.ProductType as data.label for data in productTypeList">
+
+                                    </select2>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="row.Remarks" ng-model-onblur ng-change="itemReturnRemerks(row)" />
+                                </td>
+                            </tr>
+                            <tr ng-repeat="row in sprDtls">
+                                <td>{{row.CategoryName}}</td>
+                                <td>{{row.ProductName}}</td>
+                                <td>{{row.UnitName}}</td>
+                                <td>{{row.QCFailQty}}</td>   @*ReceiveQty*@
+                                <td><input type="text" class="form-control" ng-model="row.ReturnQty" ng-keyup="itemReturnRemerks(row)" /></td>
+                                <td>
+                                    <select2 style="width:200px" placeholder="--Select ProductType--" ng-model="row.ProductType" s2-options="data.ProductType as data.label for data in productTypeList">
+
+                                    </select2>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="row.Remarks" ng-model-onblur ng-change="itemReturnRemerks(row)" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 frm-manage-pad2">
+                    <div class="form-group">
+                        <div class="form-inner12">
+                            <label for="fname" class="left-col control-label"></label>
+                            <div class="right-col mt-org1" style="text-align:right">
+                                <button type="button" class="btn btn-success custom-btn1"ng-disabled="disableBtn" name="Submit" data-ng-click="saveItemReturn()">Submit</button>
+                                <button type="button" class="btn btn-default custom-btn1" name="Clear" ng-click="clearData()"><i class="pg-close"></i> Clear</button>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".datepicker").datepicker({
+        changeMonth: true,
+        autoclose: true,
+        changeYear: true
+    });
+</script>
+
+
+

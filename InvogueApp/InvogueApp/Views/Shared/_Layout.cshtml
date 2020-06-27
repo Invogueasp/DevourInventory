@@ -1,0 +1,495 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <title>DEVOUR</title>
+    @RenderSection("section_top", required: false)
+    @*Start:: Theme default CSS*@
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/user_define/images/faveicon.png">
+    <link href="~/Content/built_in/assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/built_in/assets/plugins/bootstrap-select2/select2.css" rel="stylesheet" />
+    <link href="~/Content/built_in/assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+    <link href="~/Content/built_in/assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" />
+
+    <link href="~/Content/built_in/assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="~/Content/built_in/pages/css/pages.css" rel="stylesheet" />
+    <link href="~/Content/built_in/assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/built_in/pages/css/style.css" rel="stylesheet" />
+    <link href="~/Content/built_in/pages/css/pages-icons.css" rel="stylesheet" />
+
+
+    @*End:: Theme default CSS*@
+
+
+
+    @*Start:: Theme and Custom CSS*@
+    <link href="~/Content/user_define/form-style/main.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/user_define/form-style/form-style.css" rel="stylesheet" />
+    <link href="~/Content/user_define/form-style/form-control.css" rel="stylesheet" />
+    <link href="~/Content/user_define/form-style/form-manage.css" rel="stylesheet" />
+    @*End:: Theme CSS END*@
+
+
+
+    <link href="~/Content/angucomplete-alt.css" rel="stylesheet" />
+    <link href="~/Content/treeGrid.css" rel="stylesheet" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <link href="~/Content/custom.css" rel="stylesheet" />
+
+    @*Start:: Common js*@
+
+    <script src="~/Content/built_in/assets/plugins/modernizr.custom.js"></script>
+    <script src="~/Content/built_in/jquery.min.js"></script>
+    <script src="~/Content/built_in/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/Content/user_define/tab/jquery-ui-1.10.4.custom.js"></script>
+    <script src="~/Content/built_in/assets/plugins/boostrapv3/js/bootstrap.min.js"></script>
+    <script src="~/Content/user_define/js/custom.js"></script>
+
+    <style>
+        .panel-heading a:not(.btn) {
+            color: #ffffff !important;
+            opacity: 1;
+        }
+
+        .table-responsive {
+            width: 100% !important;
+        }
+
+        .page-sidebar .sidebar-menu .menu-items > li > a {
+            padding-left: 10px;
+        }
+        .page-sidebar .sidebar-header {
+            padding-left: 0px;
+        }
+        .pull-right span {
+            text-transform: uppercase;
+        }
+        .page-sidebar .sidebar-menu .menu-items > li ul.sub-menu > li > a span {
+            position: absolute;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 30px;
+            z-index: 999999;
+            color: #fff;
+            background: red;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        .page-sidebar .sidebar-menu .menu-items > li ul.sub-menu > li > a {
+            position: relative !important;
+            display: flex;
+            padding: 8px 0px;
+        }
+    </style>
+</head>
+
+<body ng-app="app" class="fixed-header windows desktop sidebar-visible menu-pin">
+
+    @if (Session["logInSession"] != "false")
+    {
+        if (Session["logInSession"] == "true")
+        {
+            <div id="app">
+                <nav class="page-sidebar" data-pages="sidebar">
+                    <div class="sidebar-header">
+                        <a href="/#!/">
+                            <img src="@Url.Content("~/Content/img/r_logo.png")" alt="logo" class="brand" data-src="@Url.Content("~/Content/img/TECHNO.png")" data-src-retina="@Url.Content("~/Content/built_in/assets/img/TECHNO.png")" style="max-width:178px; height:28px;padding-left:10px">
+                        </a>
+
+                        <div class="sidebar-header-controls">
+                            <button type="button" class="btn btn-link visible-lg-inline" data-toggle-pin="sidebar" id="togglePin">
+                                <i class="fa fs-12"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Left Side top Menu -->
+                    <!--- Menu -->
+                    <div class="sidebar-menu" ng-controller="menuController">
+                        <ul class="menu-items">
+                            <li class="m-t-30 open active">
+                                <a href="/#!/">Home</a>
+                                <span class="bg-success icon-thumbnail"><i class="fa fa-desktop" aria-hidden="true"></i></span>
+                            </li>
+
+                            <li ng-show="Commercial">
+                                <a href="javascript:void(0);">
+                                    <span class="">Commercial</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <span class="icon-thumbnail"><i class="pg-menu_lv"></i></span>
+                                <ul class="sub-menu">
+                                    <li ng-show="PurchaseRequisitionList"><a href="#!/PurchaseRequisitionList">Purchase Requisition</a></li>
+                                    <li ng-show="SPRApprovalList1"><a href="#!/SPRApprovalList">Indent/SPR 1st Approval <span ng-if="menuCount.sprCountData">{{menuCount.sprCountData}}</span></a></li>                                   
+                                    <li ng-show="PurchaseOrderList1"><a href="#!/PurchaseOrderList">Purchase Order (PO) <span ng-if="menuCount.pOCountData">{{menuCount.pOCountData}}</span></a></li>
+                                    <li ng-show="PurchaseOrderList1"><a href="#!/PendingPOrderCreate">Pending Purchase Order</a></li>
+                                    <li ng-show="POApprovalList1"><a href="#!/POApprovalList">PO 1st Approval <span ng-if="menuCount.pOFirstAppCountData">{{menuCount.pOFirstAppCountData}}</span></a></li>
+                                    <li ng-show="PO2ndApprovalList1"><a href="#!/PO2ndApprovalList">PO 2nd Approval <span ng-if="menuCount.pOSecAppCountData">{{menuCount.pOSecAppCountData}}</span></a></li>
+                                    <li ng-show="MRRHeadOfficeList1"><a href="#!/MRRHeadOfficeList">Material Receive Report (HO)</a></li>
+                                    <li ng-show="MRSList1"><a href="#!/MRSList">Material Receive In Store <span ng-if="menuCount.mrrCountData">{{menuCount.mrrCountData}}</span></a></li>
+                                    <li ng-show="QCList1"><a href="#!/QCList">Quality Certificate Issue <span ng-if="menuCount.qcCountData">{{menuCount.qcCountData}}</span></a></li>
+                                    <li ng-show="MRRList"><a href="#!/MRRList">Material Receive <span ng-if="menuCount.mrrCountData">{{menuCount.mrrCountData}}</span></a></li>
+                                    <li ng-show="ItemReturnList1"><a href="#!/ItemReturnList">Item Return</a></li>
+                                    <li ng-show="IRApprovalList1"><a href="#!/IRApprovalList">Item Return Approval <span ng-if="menuCount.irCountData">{{menuCount.irCountData}}</span></a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </li> 
+                            <li ng-show="Inventory">
+                                @*<a href="javascript:void(0);" style="line-height: 20px; white-space: normal;">*@
+                                <a href="javascript:void(0);">
+                                    <span class="">Inventory</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <span class="icon-thumbnail"><i class="pg-menu_lv"></i></span>
+                                <ul class="sub-menu">
+                                    <li ng-show="StoreRequisitionList"><a href="#!/StoreRequisitionList">SR</a></li>
+                                    <li ng-show="SRApprovalList"><a href="#!/SRApprovalList">SR 1st Approval <span ng-if="menuCount.stFirstCountData">{{menuCount.stFirstCountData}}</span></a></li>
+                                    <li ng-show="SR2ndApprovalList"><a href="#!/SR2ndApprovalList">SR 2nd Approval <span ng-if="menuCount.stSecCountData">{{menuCount.stSecCountData}}</span></a></li>
+                                    <li ng-show="IssueList"><a href="#!/IssueList">Item Issue <span ng-if="menuCount.itemIssueCountData">{{menuCount.itemIssueCountData}}</span></a></li>
+                                    <li ng-show="ScrapReturnList1"><a href="#!/ScrapReturnList">Scrap Return</a></li>
+                                    <li ng-show="CurrentStockList"><a href="#!/OpeningStock">Opening Stock</a></li>
+                                    <li ng-show="CurrentStockList"><a href="#!/CurrentStockList">Current Stock</a></li>
+                                   
+                                    
+                                </ul>
+                                <div class="clearfix"></div>
+                            </li> 
+                            <li ng-show="Reports1">
+                                <a href="javascript:void(0);">
+                                    <span class="">Reports</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <span class="icon-thumbnail"><i class="pg-menu_lv"></i></span>
+                                <ul class="sub-menu">
+                                    <li ng-show="SRandIssueReport"><a href="#!/SRandIssueReport">Store Requisation</a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </li>                    
+                            <li ng-show="CommonUser">
+                                <a href="javascript:void(0);">
+                                    <span class="">Settings</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <span class="icon-thumbnail"><i class="pg-menu_lv"></i></span>
+                                <ul class="sub-menu">
+                                    <li ng-show="CategoryList"><a href="#!/CategoryList">Category</a></li>
+                                    <li ng-show="SubCategoryList1"><a href="#!/SubCategoryList">Sub Category</a></li>
+                                    <li ng-show="DepartmentList1"><a href="#!/DepartmentList">Department</a></li>
+                                    <li ng-show="Machine1"><a href="#!/MachineList">Machine</a></li>
+                                    <li ng-show="Model1"><a href="#!/ModelList">Model</a></li>
+                                    <li ng-show="UnitList"><a href="#!/UnitList">Unit</a></li>
+                                    <li ng-show="ProductList"><a href="#!/ProductList">Product</a></li>
+                                    <li ng-show="UploadProduct1"><a href="#!/UploadProduct">Upload Product</a></li>
+                                    <li ng-show="StoreRackList1"><a href="#!/StoreRackList">Store Rack</a></li>
+                                    <li ng-show="StoreBinList1"><a href="#!/StoreBinList">Store Bin</a></li>
+                                    <li ng-show="SupplierList1"><a href="#!/SupplierList">Supplier</a></li>
+                                    <li ng-show="Company1"><a href="#!/CompanyList">Company</a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li ng-show="Security">
+                                <a href="javascript:void(0);">
+                                    <span class="">Security</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <span class="icon-thumbnail"><i class="pg-menu_lv"></i></span>
+                                <ul class="sub-menu">
+                                    <li ng-show="User"><a href="#!/User">User</a></li>
+                                    <li ng-show="Page"><a href="#!/Page">Page</a></li>
+                                    <li ng-show="PagePermission"><a href="#!/UserGroup">Page Permission</a></li>
+                                    <li ng-show="ChangeOwnPassword"><a href="#!/ChangePassword">Change Own Password</a></li>
+                                    <li ng-show="ChangePasswordByAdmin"><a href="#!/PasswordChangeByAdmin">Reset Password</a></li>
+
+                                </ul>
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    @*Menu*@
+                </nav>
+
+                <div class="page-container ">
+                    <div class="header " ng-controller="logInController">
+                        <!--Logo Section -->
+                        <div class="container-fluid relative">
+                            <div class="pull-left full-height visible-sm visible-xs">
+                                <div class="header-inner">
+                                    <a href="#" class="btn-link toggle-sidebar visible-sm-inline-block visible-xs-inline-block padding-5" data-toggle="sidebar">
+                                        <span class="icon-set1 menu-hambuger">|||</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="pull-center hidden-md hidden-lg">
+                                <div class="header-inner">
+                                </div>
+                            </div>
+
+                            <div class="pull-right full-height visible-sm visible-xs">
+                                <div class="header-inner">
+                                    <a href="#" class="btn-link visible-sm-inline-block visible-xs-inline-block" data-toggle="quickview" data-toggle-element="#quickview">
+                                        <span class="icon-set1 menu-hambuger-plus">|||</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class=" pull-left sm-table hidden-xs hidden-sm">
+                            <div class="header-inner" style="text-align:left;padding-left:12px;">
+                                <div class="brand inline" style="text-align:left;padding-left:12px;">
+                                    <a href="/#!/">
+                                        <img src="@Url.Content("~/Content/built_in/assets/img/logo6.png")" alt="logo" data-src="@Url.Content("~/Content/built_in/assets/img/logo6.png")" data-src-retina="@Url.Content("~/Content/built_in/assets/img/logo6.png")" width="35" height="40">
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Logo Section -->
+                        <!-- Right Login Menu -->
+                        <div class=" pull-right">
+                        </div>                       
+
+                        <div class=" pull-right">
+                            <div class="visible-lg visible-md m-t-10">
+                                <div class="pull-left p-r-10 p-t-10 fs-16 font-heading">
+                                    <span class="semi-bold">
+                                        @{
+                                            var name = Session["LoginUserFullName"] != null ? Session["LoginUserFullName"].ToString() : "";
+                                            @name;
+                                        }
+                                    </span>
+
+                                </div>
+                                <div class="dropdown pull-right">
+                                    <button class="profile-dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="thumbnail-wrapper d32 circular inline m-t-5">
+                                            <img src="@Url.Content("~/Content/built_in/assets/img/profiles/avatar.png")" alt="" data-src="@Url.Content("~/Content/built_in/assets/img/profiles/avatar.png")" data-src-retina="@Url.Content("~/Content/built_in/assets/img/profiles/avatar_small2x.jpg")" width="50" height="50">
+                                        </span>
+                                    </button>
+                                    <ul class="dropdown-menu profile-dropdown" role="menu">
+                                        <li class="bg-master-lighter" id="logout">
+                                            <a ng-click="LogOut()" class="clearfix">
+                                                <span class="pull-left">Logout</span>
+                                                <span class="pull-right"><i class="pg-power"></i></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Login Menu -->
+                    </div>
+                    <div class="page-content-wrapper ">
+                        <div class="content ">
+                            <div class="container-fluid container-fixed-lg custom-container">
+                                <div ng-view>
+                                    @RenderBody()
+                                </div>
+
+                            </div>
+
+                            @*<div class="container-fluid footer">
+                                    <div class="copyright sm-text-center">
+                                        <p class="small no-margin pull-left sm-pull-reset" style="width: 100%;">
+                                            <span class="hint-text">Copyright &copy; @DateTime.Now.Year </span>
+                                            <span class="font-montserrat">Invogue Software Limited</span>.
+                                            <span class="hint-text">All rights reserved. </span>
+                                            <span class="sm-block" style="float: right;"><a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+                                        </p>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>*@
+                        </div>
+                        <!-- Start Body -->
+                    </div>
+
+                </div>
+
+            </div>
+        }
+        else
+        {
+
+        }
+    }
+    else
+    {
+        <div>
+            <div ng-view>
+                @RenderBody()
+            </div>
+        </div>
+
+    }
+
+
+    <script type="text/javascript">
+        $(document).ready(function ($) {
+            // Hide Loader
+            $("#loading").hide();
+            // menu
+            var device_width = $(window).width();
+            if (device_width < 1000) {
+                $("body").removeClass('windows');
+                $("body").removeClass('desktop');
+                $("body").removeClass('sidebar-visible');
+                $("body").removeClass('menu-pin');
+            }
+
+            //menu selected
+            $(".menu-items a").each(function () {
+                var curURL = window.location.href; // Current full URL
+                curURL = curURL.replace(/\/$/, "");
+                curURL = decodeURIComponent(curURL);
+
+                var originUrl = window.location.origin; // Domain Part from curURL
+                var newUrl = curURL.replace(originUrl, ''); // Remove Domain Part
+
+                var href = $(this).attr('href');
+
+                if (newUrl === href) {
+                    $(this).closest('li').addClass('open active');
+                    $(this).closest('li').parents("li").addClass('open active');
+                    $(this).closest('li').parents("ul").css({ "display": "block" });
+                } else {
+                    var secondurl = $("ul.breadcrumb a:eq(1)").attr("href");
+                    if (secondurl === href) {
+                        $(this).closest('li').addClass('open active');
+                        $(this).closest('li').parents("li").addClass('open active');
+                        $(this).closest('li').parents("ul").css({ "display": "block" });
+                    }
+                }
+            });
+        });
+
+    </script>
+
+    @RenderSection("section_footer", required: false)
+
+    @*Start:: Theme default JS*@
+    <script src="~/Content/built_in/assets/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+    <script src="~/Content/built_in/assets/js/form_layouts.js"></script>
+    <script src="~/Content/built_in/assets/js/form_elements.js"></script>
+    <script src="~/Content/built_in/assets/plugins/bootstrap-select2/select2.min.js"></script>
+    <script src="~/Content/built_in/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/Content/built_in/assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="~/Content/built_in/assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="~/Content/built_in/pages/js/pages.min.js"></script>
+    <script src="~/Content/js/custom.js"></script>
+    @*End:: Theme default JS*@
+
+    <!--Start Angular js-->
+    <script type="text/javascript" src="~/Content/angular/angular.js"></script>
+    <script type="text/javascript" src="~/Content/angular/angular-route.js"></script>
+    <script type="text/javascript" src="~/Content/angular/angular-touch.js"></script>
+    <script type="text/javascript" src="~/Content/angular/angular-animate.js"></script>
+    <script src="~/Content/angular/angular-drag-and-drop-lists.js"></script>
+    <script type="text/javascript" src="~/Content/angular/angular-sanitize.js"></script>
+    <script type="text/javascript" src="~/Content/angular/angular-cookies.js"></script>
+    <script type="text/javascript" src="~/Content/angular/angular-resource.js"></script>
+    <script src="~/Content/angular/ng-file-upload.min.js"></script>
+    <script src="~/Content/angular/ng-file-upload-shim.min.js"></script>
+    <script src="~/Content/angular/angular-idle.js"></script>
+    <script src="~/Content/angular/angular-select2.min.js"></script>
+    <script src="~/Content/built_in/assets/plugins/jquery-datatable/media/js/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/Content/angular-user-define/tree-grid-directive.js"></script>
+    <script type="text/javascript" src="~/Content/angular/ngDialog.js"></script>
+    <script src="~/Content/angular-user-define/route.js"></script>
+    <script src="~/Content/smart-table.js"></script>
+
+    <script src="~/Content/angular/angucomplete-alt.js"></script>
+    <!--Toaster-->
+    <script src="~/Content/js/toastr.min.js"></script>
+    <!-- Angular deractive-->
+    <script src="~/Content/angular-user-define/deractive.js"></script>
+    <!-- Angular repository-->
+    <script src="~/Content/angular-user-define/securityLogin/service/securityRepository.js"></script>
+    <script src="~/Content/angular-user-define/hrm/service/hrmRepository.js"></script>
+    <script src="~/Content/angular-user-define/hrm/settings/services/settingsRepository.js"></script>
+    <script src="~/Content/angular-user-define/commonRepository.js"></script>
+
+    <!-- Security Controller-->
+    <script src="~/Content/angular-user-define/securityLogin/controller/menuController.js"></script>
+    <script src="~/Content/angular-user-define/securityLogin/controller/logInController.js"></script>
+    <script src="~/Content/angular-user-define/securityLogin/controller/userGroupController.js"></script>
+    <script src="~/Content/angular-user-define/securityLogin/controller/pageController.js"></script>
+    <script src="~/Content/angular-user-define/securityLogin/controller/userController.js"></script>
+    <script src="~/Content/angular-user-define/securityLogin/controller/changePasswordController.js"></script>
+    <!-- Setting Controller-->
+    <script src="~/Content/angular-user-define/setting/controller/categoryController.js"></script>
+    <script src="~/Content/angular-user-define/setting/controller/supplierController.js"></script>
+    <script src="~/Content/angular-user-define/setting/controller/machineContoller.js"></script>
+    <script src="~/Content/angular-user-define/setting/controller/modelController.js"></script>
+    <script src="~/Content/angular-user-define/hrm/settings/controller/companyController.js"></script>
+    @*<script src="~/Content/angular-user-define/setting/controller/colorController.js"></script>*@
+    @*<script src="~/Content/angular-user-define/setting/controller/brandController.js"></script>*@
+
+    <script src="~/Content/angular-user-define/setting/controller/departmentController.js"></script>
+    <script src="~/Content/angular-user-define/setting/controller/unitController.js"></script>
+    <script src="~/Content/angular-user-define/setting/controller/typeController.js"></script>
+    @*<script src="~/Content/angular-user-define/setting/controller/warehouseController.js"></script>*@
+    <script src="~/Content/angular-user-define/setting/controller/storeController.js"></script>
+    <script src="~/Content/angular-user-define/setting/controller/storeRackController.js"></script>
+    <script src="~/Content/angular-user-define/setting/controller/storeBinController.js"></script>
+    <script src="~/Content/angular-user-define/setting/controller/productController.js"></script>
+
+    <!-- Inventory Controller-->
+    <script src="~/Content/angular-user-define/inventory/controller/purchaseReqController.js"></script>
+    <script src="~/Content/angular-user-define/inventory/controller/itemReturnController.js"></script>
+
+    <script src="~/Content/angular-user-define/inventory/controller/storeRequisitionController.js"></script>
+
+    <script src="~/Content/angular-user-define/inventory/controller/srApprovalController.js"></script>
+    <script src="~/Content/angular-user-define/inventory/service/inventoryRepository.js"></script>
+
+    <script src="~/Content/angular-user-define/inventory/controller/itemIssueController.js"></script>
+
+    <script src="~/Content/angular-user-define/inventory/controller/transferController.js"></script>
+    <script src="~/Content/angular-user-define/inventory/controller/transferAppController.js"></script>
+
+    <script src="~/Content/angular-user-define/inventory/controller/returnAppController.js"></script>
+
+    <script src="~/Content/angular-user-define/inventory/controller/sprController.js"></script>
+    <script src="~/Content/angular-user-define/setting/controller/subCategoryController.js"></script>
+    <script src="~/Content/angular-user-define/inventory/controller/sprAppController.js"></script>
+
+    <script src="~/Content/angular-user-define/inventory/controller/purchaseOrderController.js"></script>
+
+    <script src="~/Content/angular-user-define/inventory/controller/pOrderApprovalController.js"></script>
+
+    <script src="~/Content/angular-user-define/inventory/controller/mrReportController.js"></script>
+
+    <script src="~/Content/angular-user-define/inventory/controller/stockController.js"></script>
+    <script src="~/Content/angular-user-define/inventory/controller/mrrHeadOfficeController.js"></script>
+
+
+    <script src="~/Content/angular-user-define/inventory/controller/mrInStoreController.js"></script>
+
+    <script src="~/Content/angular-user-define/inventory/controller/qcController.js"></script>
+    <script src="~/Content/angular-user-define/inventory/controller/openingStockController.js"></script>
+
+
+
+    <!--Reports--> 
+    <script src="~/Content/angular-user-define/inventory/controller/reportsController.js"></script>
+    <!-- Setting  Repository -->
+    <script src="~/Content/angular-user-define/setting/service/settingRepository.js"></script>
+
+
+    <script src="~/Content/angular-user-define/inventory/controller/scrapReturnController.js"></script>
+
+</body>
+</html>

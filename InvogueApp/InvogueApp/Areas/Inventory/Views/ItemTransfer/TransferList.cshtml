@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Item Transfer";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+<div class="panel panel-transparent" ng-controller="transferController">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Item Transfer
+        </div>
+
+        <div class="pull-right m-t-15">
+            <div id="show-modal" class="btn btn-success custom-btn2">
+                <i class="fa fa-plus pr1"></i>
+                <a href="#!/TransferCreate" ng-click="removeCookies()">Add New</a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="panel-body">
+        <table st-table="data" st-safe-src="transferList" class="table table-striped" ng-init="loadTransfer()">
+            <thead>
+                <tr>
+                    <th colspan="8" style="padding-right: 0px;">
+                        <input st-search class="input-sm form-control topsearch" type="search" placeholder="Search" style="width: 200px; float: right" />
+                    </th>
+
+                </tr>
+                <tr>
+                    <th>Transfer No</th>
+                    <th>Transfer Date</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th style="width: 10%">Action </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in data">
+                    <td>{{row.TransferNO}}</td>
+                    <td>{{row.TransferDate}}</td>
+                    <td>{{row.FromStore}}</td>
+                    <td>{{row.ToStore}}</td>
+                    <td align="center">
+                        <button type="button" ng-click="editRow(row)" class="btn btn-success btn-xs">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="Page-align">
+                        <div st-pagination="" st-items-by-page="itemsByPage"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+
+    </div>
+</div>
+

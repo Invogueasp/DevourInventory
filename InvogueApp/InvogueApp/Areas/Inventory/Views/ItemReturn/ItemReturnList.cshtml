@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Item Return";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+<div class="panel panel-transparent" ng-controller="itemReturnController">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Item Return
+        </div>
+
+        <div class="pull-right m-t-15">
+            <div id="show-modal" class="btn btn-success custom-btn2">
+                <i class="fa fa-plus pr1"></i>
+                <a href="#!/ItemReturnCreate" ng-click="removeCookies()">Add New</a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="panel-body">
+        <table st-table="data" st-safe-src="returnList" class="table table-striped" ng-init="loadReturn()">
+            <thead>
+                <tr>
+                    <th colspan="6" style="padding-right: 0px;">
+                        <input st-search class="input-sm form-control topsearch" type="search" placeholder="Search" style="width: 200px; float: right" />
+                    </th>
+
+                </tr>
+                <tr>
+                    <th>RETURN NO</th>
+                    <th>RETURN DATE</th>
+                    <th>RETURN TYPE</th>
+                    <th>Status</th>
+                    <th style="width: 10%">Action </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in data">
+                    <td>{{row.ReturnNO }}</td>
+                    <td>{{row.ReturnDate}}</td>
+                    <td>{{row.ReturnTypes}}</td>
+                    <td>{{row.Status == "A" ? "Approved":"Pending"}}</td>
+                    <td align="center">
+                        <button type="button" ng-disabled="row.end3AppBtn" ng-click="editRow(row)" class="btn btn-success btn-xs">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="Page-align">
+                        <div st-pagination="" st-items-by-page="itemsByPage"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+
+    </div>
+</div>
+

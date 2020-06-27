@@ -1,0 +1,245 @@
+﻿@{
+    ViewBag.Title = "Issue";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+<style>
+    tfoot.totalList {
+        border-bottom: 1px solid #ddd;
+    }
+
+        tfoot.totalList tr td {
+            border: none;
+        }
+</style>
+<div class="panel panel-transparent">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Item Issue
+        </div>
+    </div>
+
+    <div class="panel-body" ng-controller="itemIssueController">
+        <div class="row form-horizontal xl-mlr10">
+            <form name="CreateBranchForm" ng-init="loadDropdowns()">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30">
+                    <input type="text" class="form-control hidden" ng-model="issue.IssueID" readonly />
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label for="ExpertiseAreaName" class="left-col control-label">From Date</label>
+                            <div class="right-col">
+                                <div id="datepicker-component" class="input-group date">
+                                    <input type="text" class="form-control datepicker" ng-model="issue.fromDate" ng-change="searchSR()">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                    <div class="form-group hidden">
+                        <div class="form-inner13">
+                            <label for="ExpertiseAreaName" class="left-col control-label">To Date</label>
+                            <div class="right-col">
+                                <div id="datepicker-component" class="input-group date">
+                                    <input type="text" class="form-control datepicker" ng-model="issue.toDate" ng-change="searchSR()">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Store</label>
+                            <div class="right-col">
+                                <select2 style="width: 100%" placeholder="--Select Store--" ng-model="issue.BranchID" ng-change="searchSR()"
+                                         s2-options="store.BranchID as store.Name for store in storeList" required>
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Department</label>
+                            <div class="right-col">
+                                <select2 style="width: 100%" placeholder="--Select Department--" ng-model="issue.DepartmentID" ng-change="searchSR()"
+                                         s2-options="store.DepartmentID as store.Name for store in deptList" required>
+
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Raise By</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="issue.UserName" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xl-mb30" style="margin-top: 20px;">
+                    <div class="div-info bold padding-10">Issue Info</div>
+                    <table st-table="storeReqData" st-safe-src="storeReqList" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th st-sort="Address">Req. No</th>
+                                <th st-sort="UserFullName">Req. Date</th>
+                                <th st-sort="UserFullName">Req. Date</th>
+                                <th st-sort="UserFullName">Store</th>
+                                <th st-sort="UserFullName">Department</th>
+                                <th st-sort="UserFullName">Status</th>
+                                <th style="width: 8%; text-align: center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-show="hideData">
+                            <tr ng-repeat="row in storeReqData" ng-class="{'font_color': row.Status === '2A'}">
+                                <td>{{row.SRNO}}</td>
+                                <td>{{row.RequisitionDate}}</td>
+                                <td>{{row.RequiredDate}}</td>
+                                <td>{{row.Name}}</td>
+                                <td>{{row.DepartmentName}}</td>
+                                <td>{{row.IssueStatus}}</td>
+                                <td align="center">
+                                    <button type="button" ng-click="viewIssueApprovalRow(row)" class="btn btn-primary btn-xs">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+
+
+            <!-- Shift Modal start -->
+            <div class="modal fade stick-up" my-modal my-modal-is-open="isShiftModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" style="width: 1000px;">
+                    <div class="modal-content">
+                        <div class="modal-header clearfix text-left">
+                            <button type="button" class="close" ng-click="shiftClose()" aria-hidden="true">
+                                <i class="pg-close fs-14"></i>
+                            </button>
+                            <div class="bold">Item Issue</div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-horizontal xl-mlr10" style="margin: 15px 0;">
+                                <form name="CreateBranchForm" ng-init="loadStore()">
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30">
+                                        <input type="text" class="form-control hidden" ng-model="issueItem.IssueID" />
+                                        <input type="text" class="form-control hidden" ng-model="issueItem.SRID" />
+                                        <div class="form-group">
+                                            <div class="form-inner13">
+                                                <label class="left-col control-label">Issue No</label>
+                                                <div class="right-col">
+                                                    <input type="text" class="form-control" ng-model="issueItem.IssueNO" readonly />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-inner13">
+                                                <label for="ExpertiseAreaName" class="left-col control-label">Issue Date</label>
+                                                <div class="right-col">
+                                                    <div id="datepicker-component" class="input-group date">
+                                                        <input type="text" class="form-control datepicker" ng-model="issueItem.IssueDate" required>
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                                <div class="clr"></div>
+                                            </div>
+                                        </div>
+                                        @*<div class="form-group">
+                                                <div class="form-inner13">
+                                                    <label for="ExpertiseAreaName" class="left-col control-label">Req. Date</label>
+                                                    <div class="right-col">
+                                                        <div id="datepicker-component" class="input-group date">
+                                                            <input type="text" class="form-control datepicker">
+                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clr"></div>
+                                                </div>
+                                            </div>*@
+                                        <div class="form-group">
+                                            <div class="form-inner13">
+                                                <label class="left-col control-label">Store</label>
+                                                <div class="right-col">
+                                                    <select2 style="width: 100%" placeholder="--Select Store--" ng-model="issueItem.BranchID" s2-options="store.BranchID as store.Name for store in storeList" readonly required>
+
+                                                    </select2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+
+                            <table st-table="data" st-safe-src="storeReqDtls" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Product</th>
+                                        <th>Unit</th>
+                                        <th>Stock.Qty</th>
+                                        <th>Req. Qty</th>
+                                        <th>App. Qty</th>
+                                        <th>Issue Qty</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in storeReqDtls">
+                                        <td>{{row.CategoryName}}</td>
+                                        <td>{{row.ProductName}}</td>
+                                        <td>{{row.UnitName}}</td>
+                                        <td>{{row.StockQty}}</td>
+                                        <td>{{row.ReqQty}}</td>
+                                        <td>{{row.ApprovedQty}}</td>
+                                        <td><input type="text" class="form-control" ng-model="row.IssueQty" ng-keyup="issueDtls(row)" ng-readonly="readonly" /></td>
+                                        <td><input type="text" class="form-control" ng-model="row.Remarks" ng-model-onblur ng-change="issueDtls(row)" /></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" ng-disabled="disableButton" aria-hidden="true" ng-click="saveIssueItem()">Submit</button>
+                            <button type="button" class="btn btn-primary" ng-click="shiftClose()" aria-hidden="true">Close</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".datepicker").datepicker({
+        changeMonth: true,
+        autoclose: true,
+        changeYear: true
+    });
+</script>
+
+
+

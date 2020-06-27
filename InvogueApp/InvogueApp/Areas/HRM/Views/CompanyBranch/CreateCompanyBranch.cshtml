@@ -1,0 +1,269 @@
+﻿@{
+    ViewBag.Title = "Company Branch";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+<style>
+    .checkbox_vertical {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .checkbox_vertical label {
+            margin: 0;
+        }
+</style>
+<div class="panel panel-transparent">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Company Branch
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-horizontal xl-mlr10" ng-controller="companyBranchController">
+            <form name="CreateBranchForm" ng-init="loadDropdowns()">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30">
+                    <input type="text" class="form-control hidden" ng-model="companyBranch.BranchID" readonly />
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Company</label>
+                            <div class="right-col">
+                                <select2 style="width: 100%;" ng-model="companyBranch.CompanyID" s2-options="company.CompanyID as company.Name for company in companyList"
+                                         placeholder="--Select company--" required>
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Branch Name</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="companyBranch.Name" placeholder="" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Branch Code</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="companyBranch.Code" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Contact No</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="companyBranch.ContactNO" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Email</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model="companyBranch.Email" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Status</label>
+                            <div class="right-col">
+                                <select class="form-control" ng-model="companyBranch.Status"
+                                        ng-options="status.id as status.label for status in statusList" required>
+                                    <option value="">--Select Status--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Is Head Office</label>
+                            <div class="right-col">
+                                <div class="checkbox check-primary checkbox-circle">
+                                    <input type="checkbox" id="head1" ng-model="companyBranch.IsHeadOffice" ng-true-value="1" value="1" ng-checked="companyBranch.IsHeadOffice=='1'">
+                                    <label for="head1"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Address</label>
+                            <div class="right-col">
+                                <textarea rows="3" class="form-control" ng-model="companyBranch.Address"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Description</label>
+                            <div class="right-col">
+                                <textarea rows="3" class="form-control" ng-model="companyBranch.Description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 13px;">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Bank</label>
+                            <div class="right-col">
+                                <select2 style="width: 100%;" ng-model="companyBranch.BankID" ng-change="loadBankBranch()" ng-disabled="editDisabled"
+                                         s2-options="bank.BankId as bank.BankName for bank in bankList" placeholder="--Select Bank--" required>
+                                </select2>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="showBranch">
+                        <div class="div-info bold padding-10" style="margin-bottom: 15px;">Branch Details :</div>
+                        <table st-table="branch" st-safe-src="bankBranchList" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10%; text-align: center" st-sort="Address">Select</th>
+                                    <th style="text-align: center" st-sort="UserFullName">Branch Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="row in branch">
+                                    <td style="text-align: center">
+                                        <div class="checkbox_vertical">
+                                            <div class="checkbox check-primary checkbox-circle">
+                                                <input type="checkbox" id="branch{{$index}}" ng-model="row.selected" ng-change="createBranchBankID(row)">
+                                                <label for="branch{{$index}}"></label>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td style="text-align: center">{{row.BranchName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30">
+                    <div class="div-info bold padding-10" style="margin-bottom: 15px;">Departments :</div>
+                    <table st-table="department" st-safe-src="departmentList" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%; text-align: center" st-sort="Address">Select</th>
+                                <th style="text-align: center" st-sort="UserFullName">Department Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in department">
+                                <td style="text-align: center">
+                                    <div class="checkbox_vertical">
+                                        <div class="checkbox check-primary checkbox-circle">
+                                            <input type="checkbox" id="checkbox{{$index}}" ng-model="row.selected" ng-change="createDepartmentID(row)">
+                                            <label for="checkbox{{$index}}"></label>
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td style="text-align: center">{{row.DepartmentHead}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="div-info bold padding-10" style="margin-bottom: 15px;">Shift :</div>
+                    <table st-table="shift" st-safe-src="shiftList" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%; text-align: center" st-sort="Address">Select</th>
+                                <th style="text-align: center" st-sort="UserFullName">Shift Name</th>
+                                <th width="5%" st-sort="UserFullName">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in shift">
+                                <td style="text-align: center">
+                                    <div class="checkbox_vertical">
+                                        <div class="checkbox check-primary checkbox-circle">
+                                            <input type="checkbox" id="shift{{$index}}" ng-model="row.selected" ng-change="createShiftID(row)">
+                                            <label for="shift{{$index}}"></label>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="text-align: center">{{row.Name}}</td>
+                                <td align="center">
+                                    <button type="button" ng-click="viewShiftRow(row)" class="btn btn-primary btn-xs">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="form-group">
+                        <div class="form-inner12">
+                            <label for="fname" class="left-col control-label"></label>
+                            <div class="right-col mt-org1" style="text-align:right">
+                                <button type="button" class="btn btn-success custom-btn1" name="Submit" data-ng-click="saveCompanyBranch()">Submit</button>
+                                <button type="button" class="btn btn-default custom-btn1" name="Clear" ng-click="Reload()"><i class="pg-close"></i> Clear</button>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+
+            <!-- Shift Modal start -->
+            <div class="modal fade stick-up" my-modal my-modal-is-open="isShiftModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" style="width: 1000px;">
+                    <div class="modal-content">
+                        <div class="modal-header clearfix text-left">
+                            <button type="button" class="close" ng-click="shiftClose()" aria-hidden="true">
+                                <i class="pg-close fs-14"></i>
+                            </button>
+                            <div class="bold">Shift Details:</div>
+                        </div>
+                        <div class="modal-body">
+                            <table st-table="shiftDtls" st-safe-src="shiftDtlsList" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th st-sort="Address">Day</th>
+                                        <th st-sort="UserFullName">Start</th>
+                                        <th st-sort="User">End</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in shiftDtls">
+                                        <td>{{row.Day}}</td>
+                                        <td>{{row.StartTime}}</td>
+                                        <td>{{row.EndTime}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary custom-btn1" ng-click="shiftClose()" aria-hidden="true">Close</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+        </div>
+    </div>
+</div>
+
+

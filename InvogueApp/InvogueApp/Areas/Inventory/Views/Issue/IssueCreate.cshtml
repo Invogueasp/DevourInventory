@@ -1,0 +1,232 @@
+﻿@{
+    ViewBag.Title = "Issue";
+    if (ViewBag.CallingForm1 == "index")
+    {
+    }
+    else
+    {
+        <ul class="breadcrumb">
+            <li><a href="#">@ViewBag.CallingForm</a></li>
+            <li><a href="@ViewBag.CallingViewPage" class="active">@ViewBag.CallingForm1</a></li>
+            @if (@ViewBag.CallingForm2 != null)
+            {
+                <li><a href="#" class="active">@ViewBag.CallingForm2</a></li>
+            }
+        </ul>
+    }
+}
+<style>
+    tfoot.totalList {
+        border-bottom: 1px solid #ddd;
+    }
+
+        tfoot.totalList tr td {
+            border: none;
+        }
+</style>
+<div class="panel panel-transparent">
+    <div class="panel-heading">
+        <div class="panel-title">
+           Item Issue
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-horizontal xl-mlr10" ng-controller="purchaseReqController">
+            <form name="CreateBranchForm" ng-init="loadDropdowns()">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30">
+                    <input type="text" class="form-control hidden" ng-model="companyBranch.BranchID" readonly />
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label for="ExpertiseAreaName" class="left-col control-label">From Date</label>
+                            <div class="right-col">
+                                <div id="datepicker-component" class="input-group date">
+                                    <input type="text" class="form-control datepicker" ng-model="purchaseReq.RequiredDate">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label for="ExpertiseAreaName" class="left-col control-label">To Date</label>
+                            <div class="right-col">
+                                <div id="datepicker-component" class="input-group date">
+                                    <input type="text" class="form-control datepicker" ng-model="purchaseReq.RequiredDate">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">Store</label>
+                            <div class="right-col">
+                                <select class="form-control" ng-model="cStock.Store" ng-change="showReqWishData()">
+                                    <option value="">--Select Store--</option>
+                                    <option value="1">Banani</option>
+                                    <option value="2">Intercontinental</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xl-mb30" style="margin-top: 20px;">
+                    <div class="div-info bold padding-10">Issue Info</div>
+                    <table st-table="department" st-safe-src="departmentList" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Product</th>
+                                <th>Product Type</th>
+                                <th>Warehouse</th>
+                                <th>Store</th>
+                                <th width="10%">Qty</th>
+                                <th style="width: 8%; text-align: center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-show="hideData">
+                            <tr>
+                                <td>Category-1</td>
+                                <td>Product-1</td>
+                                <td>Raw Material</td>
+                                <td>Warehouse-1</td>
+                                <td>Store-1</td>
+                                <td>10000</td>
+                                <td align="center">
+                                    <button type="button" ng-click="viewSPRApprovalRow(row)" class="btn btn-primary btn-xs">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+
+
+            <!-- Shift Modal start -->
+            <div class="modal fade stick-up" my-modal my-modal-is-open="isShiftModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" style="width: 1000px;">
+                    <div class="modal-content">
+                        <div class="modal-header clearfix text-left">
+                            <button type="button" class="close" ng-click="shiftClose()" aria-hidden="true">
+                                <i class="pg-close fs-14"></i>
+                            </button>
+                            <div class="bold">Item Issue</div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-horizontal xl-mlr10" style="margin: 15px 0;">
+                                <form name="CreateBranchForm" ng-init="loadDropdowns()">
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30">
+                                        <div class="form-group">
+                                            <div class="form-inner13">
+                                                <label class="left-col control-label">Issue No</label>
+                                                <div class="right-col">
+                                                    <input type="text" class="form-control" value="PR001" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-inner13">
+                                                <label for="ExpertiseAreaName" class="left-col control-label">Issue Date</label>
+                                                <div class="right-col">
+                                                    <div id="datepicker-component" class="input-group date">
+                                                        <input type="text" class="form-control datepicker" value="04-09-2019">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                                <div class="clr"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-inner13">
+                                                <label for="ExpertiseAreaName" class="left-col control-label">Req. Date</label>
+                                                <div class="right-col">
+                                                    <div id="datepicker-component" class="input-group date">
+                                                        <input type="text" class="form-control datepicker" value="01-08-2019">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                                <div class="clr"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-inner13">
+                                                <label class="left-col control-label">To Store</label>
+                                                <div class="right-col">
+                                                    <select class="form-control" disabled>
+                                                        <option value="">--Select Store--</option>
+                                                        <option value="1" selected="selected">Store-1</option>
+                                                        <option value="2">Store-2</option>
+                                                        <option value="3">Store-3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+
+                            <table st-table="shiftDtls" st-safe-src="shiftDtlsList" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Product</th>
+                                        <th>Unit</th>
+                                        <th>Req. Qty</th>
+                                        <th>Rem. Qty</th>
+                                        <th width="20%">Issue Qty</th>
+                                        <th width="20%">Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Category-1</td>
+                                        <td>Product-1</td>
+                                        <td>Pcs</td>
+                                        <td>100</td>
+                                        <td>50</td>
+                                        <td><input type="text" class="form-control" ng-model="purchaseReq.IssueQty" /></td>
+                                        <td><input type="text" class="form-control" ng-model="purchaseReq.Remarks" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Category-2</td>
+                                        <td>Product-2</td>
+                                        <td>Pcs</td>
+                                        <td>200</td>
+                                        <td>120</td>
+                                        <td><input type="text" class="form-control" ng-model="purchaseReq.IssueQty" /></td>
+                                        <td><input type="text" class="form-control" ng-model="purchaseReq.Remarks" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" aria-hidden="true">Submit</button>
+                            <button type="button" class="btn btn-primary" ng-click="shiftClose()" aria-hidden="true">Close</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".datepicker").datepicker({
+        changeMonth: true,
+        autoclose: true,
+        changeYear: true
+    });
+</script>
+
+
+
