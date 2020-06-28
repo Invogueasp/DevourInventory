@@ -94,10 +94,10 @@
             <tr>
                 <th>Order No</th>
                 <th>MRR.No</th>
-                <th>Due Date</th>
+                @*<th>Due Date</th>
                 <th>Store Name</th>
                 <th>Department</th>
-                <th>Supplier</th>
+                <th>Supplier</th>*@
                 <th style="width: 10%">Action </th>
             </tr>
             </thead>
@@ -105,10 +105,10 @@
             <tr ng-repeat="row in data">
                 <td>{{row.PONO}}</td>
                 <td>{{row.MRRNO}}</td>
-                <td>{{row.MRRDate}}</td>
+                @*<td>{{row.MRRDate}}</td>
                 <td>{{row.BranchName}}</td>
                 <td>{{row.Department}}</td>
-                <td>{{row.Name}}</td>
+                <td>{{row.Name}}</td>*@
                 <td align="center">
                     <button type="button" ng-click="editRow(row)" class="btn btn-success btn-xs">
                         <i class="fa fa-pencil"></i>

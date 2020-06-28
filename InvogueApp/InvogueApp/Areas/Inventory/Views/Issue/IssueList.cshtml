@@ -98,10 +98,10 @@
                         <thead>
                             <tr>
                                 <th st-sort="Address">Req. No</th>
-                                <th st-sort="UserFullName">Req. Date</th>
-                                <th st-sort="UserFullName">Req. Date</th>
+                                <th st-sort="UserFullName">Requisition Date</th>
+                                @*<th st-sort="UserFullName">Req. Date</th>
                                 <th st-sort="UserFullName">Store</th>
-                                <th st-sort="UserFullName">Department</th>
+                                <th st-sort="UserFullName">Department</th>*@
                                 <th st-sort="UserFullName">Status</th>
                                 <th style="width: 8%; text-align: center;">Action</th>
                             </tr>
@@ -110,9 +110,9 @@
                             <tr ng-repeat="row in storeReqData" ng-class="{'font_color': row.Status === '2A'}">
                                 <td>{{row.SRNO}}</td>
                                 <td>{{row.RequisitionDate}}</td>
-                                <td>{{row.RequiredDate}}</td>
+                                @*<td>{{row.RequiredDate}}</td>
                                 <td>{{row.Name}}</td>
-                                <td>{{row.DepartmentName}}</td>
+                                <td>{{row.DepartmentName}}</td>*@
                                 <td>{{row.IssueStatus}}</td>
                                 <td align="center">
                                     <button type="button" ng-click="viewIssueApprovalRow(row)" class="btn btn-primary btn-xs">
