@@ -30,21 +30,80 @@
     }
     $scope.loadDropdowns = function () {
         debugger
-        $scope.mMr = $cookieStore.get('editmMr');
-
-        if ($scope.mMr.QCID) {
-            $scope.loadMrrDtlsForEdit();
-        }
-        $scope.loadmRRList();
-        if ($scope.mMr.MRRID) {
-            //$scope.loadMrrDtls();
-            $scope.supplierSelectByOrder();
-          
-        } else {
-            $scope.getNewPersonnelCode();
-           
-        }
+        $scope.loadSpr();
     }
+
+    $scope.loadSpr = function () {
+        debugger
+        $scope.sprList = [];
+        inventoryRepository.loadSpr().then(function (response) {
+            if (response.data) {
+                debugger
+                for (i = 0; i < response.data.length; i++) {
+                    if (response.data[i].SPRDate != null) {
+                        var SPRDate = response.data[i].SPRDate.replace('/Date(', '').replace(')/', '');
+                        response.data[i].SPRDate = $filter('date')(SPRDate, "dd-MMM-yyyy");
+                    }
+
+                    if (response.data[i].RequiredDate != null) {
+                        var RequiredDate = response.data[i].RequiredDate.replace('/Date(', '').replace(')/', '');
+                        response.data[i].RequiredDate = $filter('date')(RequiredDate, "dd-MMM-yyyy");
+                    }
+                    if (response.data[i].CreatedDate != null) {
+                        var CreatedDate = response.data[i].CreatedDate.replace('/Date(', '').replace(')/', '');
+                        response.data[i].CreatedDate = $filter('date')(CreatedDate, "dd-MMM-yyyy");
+                    }
+                    if (response.data[i].FirstApproveDate != null) {
+                        var FirstApproveDate = response.data[i].FirstApproveDate.replace('/Date(', '').replace(')/', '');
+                        response.data[i].FirstApproveDate = $filter('date')(FirstApproveDate, "dd-MMM-yyyy");
+                    }
+                    if (response.data[i].ThirdApproveDate != null) {
+                        var ThirdApproveDate = response.data[i].ThirdApproveDate.replace('/Date(', '').replace(')/', '');
+                        response.data[i].ThirdApproveDate = $filter('date')(ThirdApproveDate, "dd-MMM-yyyy");
+                    }
+                    if (response.data[i].SecondApproveDate != null) {
+                        var SecondApproveDate = response.data[i].SecondApproveDate.replace('/Date(', '').replace(')/', '');
+                        response.data[i].SecondApproveDate = $filter('date')(SecondApproveDate, "dd-MMM-yyyy");
+                    }
+                    if (response.data[i].SecondApproveStatus == "2A") {
+                        response.data[i].endAppBtn = true;
+                    } else {
+                        response.data[i].endAppBtn = false;
+                    }
+                }
+                $scope.sprList = response.data;
+            }
+        })
+    }
+
+    $scope.loadSprDtls = function () {
+        debugger
+        $scope.sprDtls = [];
+        inventoryRepository.loadSprDtls($scope.SPRID).then(function (response) {
+            if (response.data) {
+                debugger
+                $scope.sprDtls = response.data;
+                //for (i = 0; i < $scope.sprDtls.length; i++) {
+
+                //    if ($scope.sprDtls[i].ProductID != null) {
+                //        debugger
+                //        inventoryRepository.loadStockQty($scope.storePR.BranchID, $scope.sprDtls[i].CategoryID, $scope.sprDtls[i].ProductID, $scope.sprDtls[i].UnitID).then(function (response) {
+                //            if (response.data) {
+                //                debugger
+                //                $scope.Id = response.data.ProductID;
+                //                for (j = 0; j < $scope.sprDtls.length; j++) {
+                //                    if ($scope.Id == $scope.sprDtls[j].ProductID) {
+                //                        $scope.sprDtls[j].StockQty = response.data.Quantity;
+                //                    }
+                //                }
+                //            }
+                //        })
+                //    }
+                //}
+            }
+        })
+    }
+
     $scope.clearData = function () {
         debugger
         $scope.mMr = {};

@@ -130,11 +130,6 @@
                     } else {
                         response.data[i].endAppBtn = false;
                     }
-                    //if (response.data[i].FirstApproveStatus == null) {
-                    //    $scope.myObj = {
-                    //        "font-weight": "bold !important"
-                    //    }
-                    //}
                 }
                 $scope.sprList = response.data;
             }
@@ -181,15 +176,9 @@
                                     if ($scope.Id == $scope.sprDtls[j].ProductID) {
                                         $scope.sprDtls[j].StockQty = response.data.Quantity;
                                     }
-
                                 }
-
-                                //$scope.storeReqDtls[i].StockQty = 5;
                             }
                         })
-
-
-
                     }
                 }
             }

@@ -36,80 +36,11 @@
             <form name="MRRForm" ng-init="loadDropdowns()">
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 xl-mb30">
                     <input type="text" class="form-control hidden" ng-model="mMr.MRRID" readonly />
-                    @*<div class="form-group">
-                        <div class="form-inner13">
-                            <label class="left-col control-label">Order No</label>
-                            <div class="right-col">
-                                <select2 style="width:100%" placeholder="--Order No--" ng-model="mMr.POID" ng-change="loadAppPurchaseOrderDtls();supplierSelectByOrder()" s2-options="store.POID as store.PONO for store in appPurchaseOrderList" required>
-
-                                </select2>
-                            </div>
-                        </div>
-                    </div>*@
                     <div class="form-group">
                         <div class="form-inner13">
-                            <label class="left-col control-label">QC No</label>
+                            <label class="left-col control-label">Requisition No.</label>
                             <div class="right-col">
-                                <select2 style="width:100%" placeholder="--QC No--" ng-model="mMr.QCID" ng-change="loadMRSFRQC();" s2-options="store.QCID as store.QCNO for store in mRRList" required>
-
-                                </select2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-inner13">
-                            <label for="ExpertiseAreaName" class="left-col control-label">MRR No</label>
-                            <div class="right-col">
-                                <input type="text" class="form-control" ng-model="mMr.MRRNO"readonly />
-                            </div>
-                            <div class="clr"></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-inner13">
-                            <label for="ExpertiseAreaName" class="left-col control-label">MRR Date</label>
-                            <div class="right-col">
-                                <div id="datepicker-component" class="input-group date">
-                                    <input type="text" class="form-control datepicker" ng-model="mMr.MRRDate" required>
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                </div>
-                            </div>
-                            <div class="clr"></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-inner13">
-                            <label class="left-col control-label">From Store</label>
-                            <div class="right-col">
-                                <select2 style="width:100%" placeholder="-- Select Store--" ng-model="mMr.BranchID"
-                                         s2-options="store.BranchID as store.Name for store in storeList" readonly>
-
-                                </select2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-inner13">
-                            <label class="left-col control-label">Department</label>
-                            <div class="right-col">
-                                <input type="text" class="form-control" ng-model="mMr.Department" readonly />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group hidden">
-                        <div class="form-inner13">
-                            <label for="ExpertiseAreaName" class="left-col control-label">Supplier Inv.</label>
-                            <div class="right-col">
-                                <input type="text" class="form-control" ng-model="mMr.SupplierInv" />
-                            </div>
-                            <div class="clr"></div>
-                        </div>
-                    </div>
-                    <div class="form-group hidden">
-                        <div class="form-inner13">
-                            <label class="left-col control-label">Supplier</label>
-                            <div class="right-col">
-                                <select2 style="width:100%" placeholder="--Supplier--" ng-model="mMr.SupplierID" s2-options="store.SupplierID as store.SupplierName for store in appPurchaseOrderList" readonly >
+                                <select2 style="width:100%" placeholder="--Requisition No.--" ng-model="SPRID" ng-change="loadSprDtls();" s2-options="spr.SPRID as spr.SPRNO for spr in sprList" required>
 
                                 </select2>
                             </div>
@@ -119,39 +50,31 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xl-mb30" style="margin-top: 20px;">
                     <div class="div-info bold padding-10">Product Info</div>
-                    <table st-table="details" st-safe-src="loadAppPurchaseOrderDtlss" class="table table-striped">
+                    <table st-table="data" st-safe-src="sprDtls" class="table table-striped">
                         <thead>
                             <tr>
                                 <th>Category</th>
-                                <th>Product</th>
-                                <th>Product Code</th>
-                                <th>Part Number</th>
+                                <th>Product Name</th>
                                 <th>Unit</th>
-                                <th>QC Pass Qty</th>
+                                <th>Requisition Qty</th>
                                 <th width="10%">Receive Qty</th>
                                 <th width="10%">Order Price</th>
-                                @*<th width="8%">Discount</th>*@
                                 <th width="10%">Total</th>
                                 <th style="width: 6%; text-align: right;">Action </th>
                             </tr>
                         </thead>
-                        <tbody ng-show="hideData">
-                            <tr ng-repeat="details in loadAppPurchaseOrderDtlss">
+                        <tbody>
+                            <tr ng-repeat="details in data">
                                 <td>{{details.CategoryName}}</td>
                                 <td>{{details.ProductName}}</td>
-                                <td>{{details.Code}}</td>
-                                <td>{{details.PartNumber}}</td>
                                 <td>{{details.UnitName}}</td>
-                                <td>{{details.QCPassQty}}</td>
+                                <td>{{details.ReqQty}}</td>
                                 <td>
-                                    <input type="text" class="form-control text-right" ng-model="details.ReceiveQtys" ng-keyup="checkRemainQty(details)" />
+                                    <input type="text" class="form-control text-right" ng-model="details.ReceiveQtys" />
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control text-right" ng-model="details.UnitRate" ng-keyup="checkRemainQty(details)" />
+                                    <input type="text" class="form-control text-right" ng-model="details.UnitRate" />
                                 </td>
-                                @*<td>
-                        <input type="text" class="form-control" ng-model="details.Discount" ng-keyup="checkRemainQty(details)" />
-                    </td>*@
                                 <td>
                                     <input type="text" class="form-control text-right" ng-model="details.LineTotal" readonly />
                                 </td>
@@ -163,28 +86,7 @@
                             </tr>
 
                         </tbody>
-                        <tfoot class="totalList" ng-show="hideData">
-                            @*<tr>
-                    <td colspan="7" style="text-align: right;">Sub Total</td>
-                    <td>
-                        <input type="text" class="form-control" ng-model="details.Remarks" ng-keyup="checkRemainQty(details)" readonly />
-                    </td>
-                    <td></td>
-                </tr>*@
-                            @*<tr>
-                    <td colspan="7" style="text-align: right;">Discount</td>
-                    <td>
-                        <input type="text" class="form-control" ng-model="details.Remarks" ng-keyup="checkRemainQty(details)" readonly />
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="7" style="text-align: right;">Vat</td>
-                    <td>
-                        <input type="text" class="form-control" ng-model="details.Remarks" ng-keyup="checkRemainQty(details)" readonly />
-                    </td>
-                    <td></td>
-                </tr>*@
+                        <tfoot class="totalList">
                             <tr>
                                 <td colspan="6" style="text-align: right;">Grand Total</td>
                                 <td>
@@ -208,10 +110,7 @@
                             <div class="clr"></div>
                         </div>
                     </div>
-
                 </div>
-
-
             </form>
         </div>
     </div>
