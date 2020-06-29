@@ -41,9 +41,17 @@
                 </tr>
                 <tr>
                     <th>Requisition No</th>
+<<<<<<< HEAD
                     <th>Requisition Date</th>                   
                     <th>Required Date</th>
                     <th>Status</th>
+=======
+                    <th>Requisition Date</th>
+                    @*<th>Store</th>*@
+                    @*<th>Required Date</th>*@
+                    <th>Status</th>
+                    @*<th>Department</th>*@
+>>>>>>> 5894e74595ff4bc22992961f35958aa59f9337da
                     <th style="width: 10%">Action </th>
                 </tr>
             </thead>
@@ -51,8 +59,16 @@
                 <tr ng-repeat="row in data">
                     <td>{{row.SRNO}}</td>
                     <td>{{row.RequisitionDate}}</td>
+<<<<<<< HEAD
                     <td>{{row.RequiredDate}}</td>
                     <td>{{row.Status == '2A' ? "Approved":"Pending"}}</td>
+=======
+                    @*<td>{{row.Name}}</td>*@
+                    @*<td>{{row.RequiredDate}}</td>*@
+                    @*<td>{{row.Status == 'A' ? "Approved":"Pending"}}</td>*@
+                    <td>{{row.Status == '2A' ? "Approved":"Pending"}}</td>
+                    @*<td>{{row.Department}}</td>*@
+>>>>>>> 5894e74595ff4bc22992961f35958aa59f9337da
                     <td align="center">
                         <button type="button" ng-click="editRow(row)" ng-disabled="end3AppBtn" class="btn btn-success btn-xs">
                             <i class="fa fa-pencil"></i>

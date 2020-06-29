@@ -98,11 +98,11 @@
             <tr>
                 <th>Requisition NO.</th>
                 <th>Requisition Date</th>
-                <th>Required Date</th>
+                @*<th>Required Date</th>*@
                 <th>Requisition Approval</th>
                 @*<th>2nd App.Status</th>
                 <th>3rd App.Status</th>*@
-                <th>Store Name</th>
+                @*<th>Store Name</th>*@
                 <th style="width: 10%; text-align: center;">Action </th>
             </tr>
             </thead>
@@ -110,13 +110,13 @@
                 <tr ng-repeat="row in data">
                     <td>{{row.SPRNO}}</td>
                     <td>{{row.SPRDate}}</td>
-                    <td>{{row.RequiredDate}}</td>
+                    @*<td>{{row.RequiredDate}}</td>*@
                     <td>{{row.FirstApproveStatus == "A" ? "Approved":"Pending"}}</td>
                     @*<td>{{row.SecondApproveStatus == "2A" ? "Approved":"Pending"}}</td>
             <td ng-if="row.ThirdApproveStatus == '3A'">{{row.ThirdApproveStatus == "3A" ? "Approved":"Pending"}}</td>
             <td ng-if="row.ThirdApproveStatus =='F'">{{row.ThirdApproveStatus == "F" ? "Approved":"Pending"}}</td>
             <td ng-if="row.ThirdApproveStatus ==null">Pending</td>*@
-                    <td>{{row.BranchName}}</td>
+                    @*<td>{{row.BranchName}}</td>*@
                     <td align="center">
                         <button type="button" ng-click="editRow(row)" ng-disabled="row.endAppBtn" class="btn btn-success btn-xs">
                             <i class="fa fa-pencil"></i>
