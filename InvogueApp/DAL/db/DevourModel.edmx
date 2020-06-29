@@ -128,11 +128,12 @@
           </Key>
           <Property Name="MRRID" Type="int" Nullable="false" />
           <Property Name="QCID" Type="int" />
-          <Property Name="POID" Type="int" Nullable="false" />
+          <Property Name="POID" Type="int" />
+          <Property Name="SPRID" Type="int" Nullable="false" />
           <Property Name="MRRNO" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="MRRDate" Type="datetime" Nullable="false" />
           <Property Name="SupplierInv" Type="varchar" MaxLength="30" />
-          <Property Name="SupplierID" Type="int" Nullable="false" />
+          <Property Name="SupplierID" Type="int" />
           <Property Name="SubTotal" Type="decimal" Precision="18" Scale="0" />
           <Property Name="TotalDiscount" Type="decimal" Precision="18" Scale="0" />
           <Property Name="TotalVat" Type="decimal" Precision="18" Scale="0" />
@@ -182,7 +183,7 @@
           </Key>
           <Property Name="MRRDtlsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MRRID" Type="int" Nullable="false" />
-          <Property Name="PODtlsID" Type="int" Nullable="false" />
+          <Property Name="PODtlsID" Type="int" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="UnitID" Type="int" Nullable="false" />
@@ -1021,39 +1022,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_INV_MRR_POID">
-          <End Role="INV_PO" Type="Self.INV_PO" Multiplicity="1" />
+        <Association Name="FK_INV_MRR_SPRID">
+          <End Role="INV_SPR" Type="Self.INV_SPR" Multiplicity="1" />
           <End Role="INV_MRR" Type="Self.INV_MRR" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="INV_PO">
-              <PropertyRef Name="POID" />
+            <Principal Role="INV_SPR">
+              <PropertyRef Name="SPRID" />
             </Principal>
             <Dependent Role="INV_MRR">
-              <PropertyRef Name="POID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_INV_MRR_SupplierID">
-          <End Role="INV_Supplier" Type="Self.INV_Supplier" Multiplicity="1" />
-          <End Role="INV_MRR" Type="Self.INV_MRR" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="INV_Supplier">
-              <PropertyRef Name="SupplierID" />
-            </Principal>
-            <Dependent Role="INV_MRR">
-              <PropertyRef Name="SupplierID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_INV_MRRDtls_PODID">
-          <End Role="INV_PODtls" Type="Self.INV_PODtls" Multiplicity="1" />
-          <End Role="INV_MRRDtls" Type="Self.INV_MRRDtls" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="INV_PODtls">
-              <PropertyRef Name="PODtlsID" />
-            </Principal>
-            <Dependent Role="INV_MRRDtls">
-              <PropertyRef Name="PODtlsID" />
+              <PropertyRef Name="SPRID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2103,6 +2080,7 @@
         </Function>
         <Function Name="sp_SaveMRR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="iMRRID" Type="int" Mode="In" />
+          <Parameter Name="iSPRID" Type="int" Mode="In" />
           <Parameter Name="iPOIDID" Type="int" Mode="In" />
           <Parameter Name="iQCID" Type="int" Mode="In" />
           <Parameter Name="iMRRNO" Type="varchar" Mode="In" />
@@ -2347,17 +2325,9 @@
             <End Role="INV_Unit" EntitySet="INV_Unit" />
             <End Role="INV_MRR_HODtls" EntitySet="INV_MRR_HODtls" />
           </AssociationSet>
-          <AssociationSet Name="FK_INV_MRR_POID" Association="Self.FK_INV_MRR_POID">
-            <End Role="INV_PO" EntitySet="INV_PO" />
+          <AssociationSet Name="FK_INV_MRR_SPRID" Association="Self.FK_INV_MRR_SPRID">
+            <End Role="INV_SPR" EntitySet="INV_SPR" />
             <End Role="INV_MRR" EntitySet="INV_MRR" />
-          </AssociationSet>
-          <AssociationSet Name="FK_INV_MRR_SupplierID" Association="Self.FK_INV_MRR_SupplierID">
-            <End Role="INV_Supplier" EntitySet="INV_Supplier" />
-            <End Role="INV_MRR" EntitySet="INV_MRR" />
-          </AssociationSet>
-          <AssociationSet Name="FK_INV_MRRDtls_PODID" Association="Self.FK_INV_MRRDtls_PODID">
-            <End Role="INV_PODtls" EntitySet="INV_PODtls" />
-            <End Role="INV_MRRDtls" EntitySet="INV_MRRDtls" />
           </AssociationSet>
           <AssociationSet Name="FK_INV_OpeningStock_BranchID" Association="Self.FK_INV_OpeningStock_BranchID">
             <End Role="SET_CompanyBranch" EntitySet="SET_CompanyBranch" />
@@ -2816,11 +2786,12 @@
           </Key>
           <Property Name="MRRID" Type="Int32" Nullable="false" />
           <Property Name="QCID" Type="Int32" />
-          <Property Name="POID" Type="Int32" Nullable="false" />
+          <Property Name="POID" Type="Int32" />
+          <Property Name="SPRID" Type="Int32" Nullable="false" />
           <Property Name="MRRNO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MRRDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SupplierInv" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="SupplierID" Type="Int32" Nullable="false" />
+          <Property Name="SupplierID" Type="Int32" />
           <Property Name="SubTotal" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="TotalDiscount" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="TotalVat" Type="Decimal" Precision="18" Scale="0" />
@@ -2830,8 +2801,7 @@
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="SEC_UserInformation" Relationship="Self.FK_INV_MRR_CreatedBy" FromRole="INV_MRR" ToRole="SEC_UserInformation" />
-          <NavigationProperty Name="INV_PO" Relationship="Self.FK_INV_MRR_POID" FromRole="INV_MRR" ToRole="INV_PO" />
-          <NavigationProperty Name="INV_Supplier" Relationship="Self.FK_INV_MRR_SupplierID" FromRole="INV_MRR" ToRole="INV_Supplier" />
+          <NavigationProperty Name="INV_SPR" Relationship="Self.FK_INV_MRR_SPRID" FromRole="INV_MRR" ToRole="INV_SPR" />
         </EntityType>
         <EntityType Name="INV_MRR_HO">
           <Key>
@@ -2882,7 +2852,7 @@
           </Key>
           <Property Name="MRRDtlsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MRRID" Type="Int32" Nullable="false" />
-          <Property Name="PODtlsID" Type="Int32" Nullable="false" />
+          <Property Name="PODtlsID" Type="Int32" />
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="UnitID" Type="Int32" Nullable="false" />
@@ -2890,7 +2860,6 @@
           <Property Name="UnitRate" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Discount" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="LineTotal" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <NavigationProperty Name="INV_PODtls" Relationship="Self.FK_INV_MRRDtls_PODID" FromRole="INV_MRRDtls" ToRole="INV_PODtls" />
         </EntityType>
         <EntityType Name="INV_OpeningStock">
           <Key>
@@ -2929,7 +2898,6 @@
           <Property Name="SecondApproveDate" Type="DateTime" Precision="3" />
           <Property Name="SecondApproveStatus" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="INV_MaterialReceive" Relationship="Self.FK_INV_MaterialRecord_POID" FromRole="INV_PO" ToRole="INV_MaterialReceive" />
-          <NavigationProperty Name="INV_MRR" Relationship="Self.FK_INV_MRR_POID" FromRole="INV_PO" ToRole="INV_MRR" />
           <NavigationProperty Name="INV_MRR_HO" Relationship="Self.FK_INV_MRR_HO_POID" FromRole="INV_PO" ToRole="INV_MRR_HO" />
           <NavigationProperty Name="SEC_UserInformation" Relationship="Self.FK_INV_PO_CreatedBy" FromRole="INV_PO" ToRole="SEC_UserInformation" />
           <NavigationProperty Name="INV_SPR" Relationship="Self.FK_INV_PO_SPRID" FromRole="INV_PO" ToRole="INV_SPR" />
@@ -2952,7 +2920,6 @@
           <Property Name="SPRDtlsID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="INV_Category" Relationship="Self.FK_INV_PODtls_CID" FromRole="INV_PODtls" ToRole="INV_Category" />
           <NavigationProperty Name="INV_MRR_HODtls" Relationship="Self.FK_MRRHODtls_PODtlsID" FromRole="INV_PODtls" ToRole="INV_MRR_HODtls" />
-          <NavigationProperty Name="INV_MRRDtls" Relationship="Self.FK_INV_MRRDtls_PODID" FromRole="INV_PODtls" ToRole="INV_MRRDtls" />
           <NavigationProperty Name="INV_PO" Relationship="Self.FK_INV_PODtls_POID" FromRole="INV_PODtls" ToRole="INV_PO" />
           <NavigationProperty Name="INV_Product" Relationship="Self.FK_INV_PODtls_PID" FromRole="INV_PODtls" ToRole="INV_Product" />
           <NavigationProperty Name="INV_SPRDtls" Relationship="Self.FK_INV_PODtls_SPRDtlsID" FromRole="INV_PODtls" ToRole="INV_SPRDtls" />
@@ -3174,6 +3141,7 @@
           <Property Name="ThirdApproveBy" Type="Int32" />
           <Property Name="ThirdApproveDate" Type="DateTime" Precision="3" />
           <Property Name="ThirdApproveStatus" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="INV_MRR" Relationship="Self.FK_INV_MRR_SPRID" FromRole="INV_SPR" ToRole="INV_MRR" />
           <NavigationProperty Name="INV_PO" Relationship="Self.FK_INV_PO_SPRID" FromRole="INV_SPR" ToRole="INV_PO" />
           <NavigationProperty Name="SET_CompanyBranch" Relationship="Self.FK_INV_SPR_BID" FromRole="INV_SPR" ToRole="SET_CompanyBranch" />
           <NavigationProperty Name="SEC_UserInformation" Relationship="Self.FK_INV_SPR_CreatedBy" FromRole="INV_SPR" ToRole="SEC_UserInformation" />
@@ -3309,7 +3277,6 @@
           <Property Name="PaymentTerms" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CreditLimit" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="CurrencyID" Type="Int32" />
-          <NavigationProperty Name="INV_MRR" Relationship="Self.FK_INV_MRR_SupplierID" FromRole="INV_Supplier" ToRole="INV_MRR" />
           <NavigationProperty Name="INV_MRR_HO" Relationship="Self.FK_INV_MRR_HO_SID" FromRole="INV_Supplier" ToRole="INV_MRR_HO" />
           <NavigationProperty Name="INV_PO" Relationship="Self.FK_INV_PO_SupplierID" FromRole="INV_Supplier" ToRole="INV_PO" />
           <NavigationProperty Name="SET_Country" Relationship="Self.FK_INV_Supplier_CountryID" FromRole="INV_Supplier" ToRole="SET_Country" />
@@ -3957,27 +3924,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_INV_MRR_POID">
-          <End Role="INV_PO" Type="Self.INV_PO" Multiplicity="1" />
+        <Association Name="FK_INV_MRR_SPRID">
+          <End Role="INV_SPR" Type="Self.INV_SPR" Multiplicity="1" />
           <End Role="INV_MRR" Type="Self.INV_MRR" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="INV_PO">
-              <PropertyRef Name="POID" />
+            <Principal Role="INV_SPR">
+              <PropertyRef Name="SPRID" />
             </Principal>
             <Dependent Role="INV_MRR">
-              <PropertyRef Name="POID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_INV_MRR_SupplierID">
-          <End Role="INV_Supplier" Type="Self.INV_Supplier" Multiplicity="1" />
-          <End Role="INV_MRR" Type="Self.INV_MRR" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="INV_Supplier">
-              <PropertyRef Name="SupplierID" />
-            </Principal>
-            <Dependent Role="INV_MRR">
-              <PropertyRef Name="SupplierID" />
+              <PropertyRef Name="SPRID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4061,18 +4016,6 @@
               <PropertyRef Name="PODtlsID" />
             </Principal>
             <Dependent Role="INV_MRR_HODtls">
-              <PropertyRef Name="PODtlsID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_INV_MRRDtls_PODID">
-          <End Role="INV_PODtls" Type="Self.INV_PODtls" Multiplicity="1" />
-          <End Role="INV_MRRDtls" Type="Self.INV_MRRDtls" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="INV_PODtls">
-              <PropertyRef Name="PODtlsID" />
-            </Principal>
-            <Dependent Role="INV_MRRDtls">
               <PropertyRef Name="PODtlsID" />
             </Dependent>
           </ReferentialConstraint>
@@ -4967,12 +4910,8 @@
             <End Role="SEC_UserInformation" EntitySet="SEC_UserInformation" />
             <End Role="INV_MRR" EntitySet="INV_MRR" />
           </AssociationSet>
-          <AssociationSet Name="FK_INV_MRR_POID" Association="Self.FK_INV_MRR_POID">
-            <End Role="INV_PO" EntitySet="INV_PO" />
-            <End Role="INV_MRR" EntitySet="INV_MRR" />
-          </AssociationSet>
-          <AssociationSet Name="FK_INV_MRR_SupplierID" Association="Self.FK_INV_MRR_SupplierID">
-            <End Role="INV_Supplier" EntitySet="INV_Supplier" />
+          <AssociationSet Name="FK_INV_MRR_SPRID" Association="Self.FK_INV_MRR_SPRID">
+            <End Role="INV_SPR" EntitySet="INV_SPR" />
             <End Role="INV_MRR" EntitySet="INV_MRR" />
           </AssociationSet>
           <AssociationSet Name="FK_INV_MRR_HO_CreatedBy" Association="Self.FK_INV_MRR_HO_CreatedBy">
@@ -5002,10 +4941,6 @@
           <AssociationSet Name="FK_MRRHODtls_PODtlsID" Association="Self.FK_MRRHODtls_PODtlsID">
             <End Role="INV_PODtls" EntitySet="INV_PODtls" />
             <End Role="INV_MRR_HODtls" EntitySet="INV_MRR_HODtls" />
-          </AssociationSet>
-          <AssociationSet Name="FK_INV_MRRDtls_PODID" Association="Self.FK_INV_MRRDtls_PODID">
-            <End Role="INV_PODtls" EntitySet="INV_PODtls" />
-            <End Role="INV_MRRDtls" EntitySet="INV_MRRDtls" />
           </AssociationSet>
           <AssociationSet Name="FK_INV_OpeningStock_BranchID" Association="Self.FK_INV_OpeningStock_BranchID">
             <End Role="SET_CompanyBranch" EntitySet="SET_CompanyBranch" />
@@ -5404,6 +5339,7 @@
           </FunctionImport>
           <FunctionImport Name="sp_SaveMRR">
             <Parameter Name="iMRRID" Mode="In" Type="Int32" />
+            <Parameter Name="iSPRID" Mode="In" Type="Int32" />
             <Parameter Name="iPOIDID" Mode="In" Type="Int32" />
             <Parameter Name="iQCID" Mode="In" Type="Int32" />
             <Parameter Name="iMRRNO" Mode="In" Type="String" />
@@ -6227,6 +6163,7 @@
                 <ScalarProperty Name="MRRID" ColumnName="MRRID" />
                 <ScalarProperty Name="QCID" ColumnName="QCID" />
                 <ScalarProperty Name="POID" ColumnName="POID" />
+                <ScalarProperty Name="SPRID" ColumnName="SPRID" />
                 <ScalarProperty Name="MRRNO" ColumnName="MRRNO" />
                 <ScalarProperty Name="MRRDate" ColumnName="MRRDate" />
                 <ScalarProperty Name="SupplierInv" ColumnName="SupplierInv" />

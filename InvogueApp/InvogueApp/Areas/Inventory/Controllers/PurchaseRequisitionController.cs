@@ -154,42 +154,6 @@ namespace InvogueApp.Areas.Inventory.Controllers
         [HttpPost]
         public JsonResult LoadSPR(int? srID, VM_Parameters param)
         {
-            //int loginUserID = Convert.ToInt32(dictionary[3].Id == "" ? 0 : Convert.ToInt32(dictionary[3].Id));
-            //int branchsID = Convert.ToInt32(dictionary[10].Id == "" ? 0 : Convert.ToInt32(dictionary[10].Id));
-            //string userName = db.SEC_UserInformation.Where(x => x.ID == loginUserID).Select(x => x.UserFullName).ToList().FirstOrDefault();
-            //var userID = db.SEC_UserInformation.Where(x => x.ID == loginUserID).FirstOrDefault();
-            //var deptName = db.INV_Department.Where(x => x.DepartmentID == userID.DepartmentID).FirstOrDefault();
-            //var branchName = db.SET_CompanyBranch.Where(x => x.BranchID == branchsID).FirstOrDefault();
-
-            //sprFactory = new SPRFactorys();
-            //List<INV_SPR> list = sprFactory.SearchSPR(srID);
-            //var srIDList = list.Select(x => new
-            //{
-            //  x.SPRID,
-            //  x.SPRNO,
-            //  x.SPRDate,
-            //  x.RequiredDate,
-            //  x.CreatedDate,
-            //  x.CreatedBy,
-            //  x.FirstApproveStatus,
-            //  x.FirstApproveDate,
-            //  x.FirstApproveBy,
-            //  DepartmentID = x.SEC_UserInformation.DepartmentID,
-              
-            //  x.SecondApproveStatus,
-            //  x.SecondApproveDate,
-            //  x.SecondApproveBy,
-
-
-            //  x.ThirdApproveBy,
-            //  x.ThirdApproveDate,
-            //  x.ThirdApproveStatus,
-
-            //  UserFullName = userName,
-            //  x.BranchID,
-            //  Department = deptName.Name,
-            //  BranchName = x.SET_CompanyBranch.Name
-            //}).ToList();
 
 
             var srIDList = (from x in db.INV_SPR
@@ -241,7 +205,7 @@ namespace InvogueApp.Areas.Inventory.Controllers
             {
                 srIDList = srIDList.Where(x => x.BranchID == param.BranchID).ToList();
             }
-            return Json(srIDList.OrderByDescending(x => x.SPRID), JsonRequestBehavior.AllowGet);
+            return Json(srIDList.OrderByDescending(x => x.SPRID).Take(10), JsonRequestBehavior.AllowGet);
         }
         
 

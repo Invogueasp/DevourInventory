@@ -19,7 +19,7 @@ namespace BLL.Interfaces.Commercial
 
     public interface IMRRFactory
     {
-        Result SaveMRR(INV_MRR mRr, List<VM_TempMrrDtlsList> mRrDtls, List<int> deletepDtlsID);
+        Result SaveMRR(INV_MRR mRr, List<VM_TempMrrDtlsList> mRrDtls);
         List<INV_MRR> SearchMRR(int? mRRID);
        // List<INV_MRRDtls> SearchMRRDtls(int? pOID);
     }

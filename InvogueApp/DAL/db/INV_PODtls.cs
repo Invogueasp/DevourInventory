@@ -18,7 +18,6 @@ namespace DAL.db
         public INV_PODtls()
         {
             this.INV_MRR_HODtls = new HashSet<INV_MRR_HODtls>();
-            this.INV_MRRDtls = new HashSet<INV_MRRDtls>();
         }
     
         public int PODtlsID { get; set; }
@@ -35,8 +34,6 @@ namespace DAL.db
         public virtual INV_Category INV_Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<INV_MRR_HODtls> INV_MRR_HODtls { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<INV_MRRDtls> INV_MRRDtls { get; set; }
         public virtual INV_PO INV_PO { get; set; }
         public virtual INV_Product INV_Product { get; set; }
         public virtual INV_SPRDtls INV_SPRDtls { get; set; }

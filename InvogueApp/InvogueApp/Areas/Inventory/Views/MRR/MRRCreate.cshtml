@@ -40,10 +40,30 @@
                         <div class="form-inner13">
                             <label class="left-col control-label">Requisition No.</label>
                             <div class="right-col">
-                                <select2 style="width:100%" placeholder="--Requisition No.--" ng-model="SPRID" ng-change="loadSprDtls();" s2-options="spr.SPRID as spr.SPRNO for spr in sprList" required>
+                                <select2 style="width:100%" placeholder="--Requisition No.--" ng-model="mMr.SPRID" ng-change="loadSprDtls();" s2-options="spr.SPRID as spr.SPRNO for spr in sprList" required>
 
                                 </select2>
                             </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label class="left-col control-label">MRR No</label>
+                            <div class="right-col">
+                                <input type="text" class="form-control" ng-model=mMr.MRRNO readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inner13">
+                            <label for="ExpertiseAreaName" class="left-col control-label">MRR Date</label>
+                            <div class="right-col">
+                                <div id="datepicker-component" class="input-group date">
+                                    <input type="text" class="form-control datepicker1" ng-model="mMr.MRRDate" required>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="clr"></div>
                         </div>
                     </div>
                 </div>
@@ -70,10 +90,10 @@
                                 <td>{{details.UnitName}}</td>
                                 <td>{{details.ReqQty}}</td>
                                 <td>
-                                    <input type="text" class="form-control text-right" ng-model="details.ReceiveQtys" />
+                                    <input type="text" class="form-control text-right" ng-model="details.ReceiveQtys" ng-change="checkRemainQty(details)" />
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control text-right" ng-model="details.UnitRate" />
+                                    <input type="text" class="form-control text-right" ng-model="details.UnitRate" ng-change="checkRemainQty(details)" />
                                 </td>
                                 <td>
                                     <input type="text" class="form-control text-right" ng-model="details.LineTotal" readonly />
@@ -118,7 +138,7 @@
 
 <script>
 
-    $(".datepicker").datepicker({
+    $(".datepicker1").datepicker({
         changeMonth: true,
         autoclose: true,
         changeYear: true

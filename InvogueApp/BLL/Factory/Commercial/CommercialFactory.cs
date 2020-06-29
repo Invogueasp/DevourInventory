@@ -327,7 +327,7 @@ namespace BLL.Factory.Commercial
 
 
         //using procedure to save data 
-        public Result SaveMRR(INV_MRR mRr, List<VM_TempMrrDtlsList> mRrDtls, List<int> deletepDtlsID)
+        public Result SaveMRR(INV_MRR mRr, List<VM_TempMrrDtlsList> mRrDtls)
         {
             _result = new Result();
             sqlFactory = new SQLFactory();
@@ -335,14 +335,14 @@ namespace BLL.Factory.Commercial
             string tableName = "MRR";
 
             _mrrDtlsFactory = new MRRDtlsFactory();
-            if (deletepDtlsID != null)
-            {
-                foreach (var detailsID in deletepDtlsID)
-                {
-                    _mrrDtlsFactory.Delete(x => x.MRRDtlsID == detailsID);
-                    _result = _mrrDtlsFactory.Save();
-                }
-            }
+            //if (deletepDtlsID != null)
+            //{
+            //    foreach (var detailsID in deletepDtlsID)
+            //    {
+            //        _mrrDtlsFactory.Delete(x => x.MRRDtlsID == detailsID);
+            //        _result = _mrrDtlsFactory.Save();
+            //    }
+            //}
 
 
             //int empID = Convert.ToInt32(dictionary[1].Id == "" ? 0 : Convert.ToInt32(dictionary[1].Id));
@@ -362,6 +362,7 @@ namespace BLL.Factory.Commercial
                 cmd.Parameters.Add(prmErr2);
 
                 cmd.Parameters.AddWithValue("@iMRRID", mRr.MRRID);
+                cmd.Parameters.AddWithValue("@iSPRID", mRr.SPRID);
                 cmd.Parameters.AddWithValue("@iMRRNO", mRr.MRRNO);
                 cmd.Parameters.AddWithValue("@iPOIDID", mRr.POID);
                 cmd.Parameters.AddWithValue("@iQCID", mRr.QCID);

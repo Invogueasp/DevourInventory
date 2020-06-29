@@ -15,7 +15,7 @@
 
         $scope.storePR = {};
         $scope.storePR.SPRDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
-        //$scope.storePR.RequiredDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
+        $scope.storePR.RequiredDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
         $scope.storePR.UserFullName = $scope.UserFullName;
         $cookieStore.put('editstorePR', $scope.storePR);
     }
@@ -29,12 +29,11 @@
     $scope.parameters = {};
     $scope.storePR = {};
     $scope.statusList = [];
-
     $scope.storePR.RequiredDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
-
     $scope.loadParameters = function () {
-        $scope.parameters.FormDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
-        $scope.parameters.ToDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
+        //$scope.parameters.FormDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
+        $scope.parameters.FormDate = null;
+        $scope.parameters.ToDate = null;
         $scope.loadStore();
         $scope.loadDepartment();
     }
@@ -49,6 +48,7 @@
         $scope.loadLoginBranchID();
         debugger
         $scope.storePR.SPRDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
+        $scope.storePR.RequiredDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
        
 
         $scope.storePR = $cookieStore.get('editstorePR');
@@ -250,7 +250,7 @@
         debugger
         $scope.storePR.WarehouseID = 1;
         if ($scope.sprForm.$valid) {
-
+            $scope.storePR.RequiredDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
             if ($scope.details.CategoryID == null && $scope.details.ProductID == null && $scope.details.UnitID == null && $scope.details.ReqQty == "" || $scope.details.CategoryID == undefined) {
 
                 var saveType = inventoryRepository.saveSpr($scope.storePR, $scope.sprDtls, $scope.deleteSPRDtlsID).then(function (response) {

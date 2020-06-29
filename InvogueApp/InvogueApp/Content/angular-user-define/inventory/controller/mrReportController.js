@@ -23,14 +23,22 @@
     $scope.parameters = {};
     $scope.mMr = {};
     $scope.loadParameters = function () {
-        $scope.parameters.FormDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
-        $scope.parameters.ToDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
+        $scope.parameters.FormDate = null;
+        $scope.parameters.ToDate = null;
         $scope.loadStore();
         $scope.loadDepartment();
     }
     $scope.loadDropdowns = function () {
         debugger
         $scope.loadSpr();
+        $scope.mMr.MRRDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
+        $scope.mMr = $cookieStore.get('editmMr');
+        if ($scope.mMr.MRRID) {
+            $scope.loadSprDtls();
+        } else {
+            $scope.getNewPersonnelCode();
+            $scope.mMr.MRRDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
+        }
     }
 
     $scope.loadSpr = function () {
@@ -79,27 +87,15 @@
     $scope.loadSprDtls = function () {
         debugger
         $scope.sprDtls = [];
-        inventoryRepository.loadSprDtls($scope.SPRID).then(function (response) {
+        inventoryRepository.loadSprDtls($scope.mMr.SPRID).then(function (response) {
             if (response.data) {
                 debugger
                 $scope.sprDtls = response.data;
-                //for (i = 0; i < $scope.sprDtls.length; i++) {
-
-                //    if ($scope.sprDtls[i].ProductID != null) {
-                //        debugger
-                //        inventoryRepository.loadStockQty($scope.storePR.BranchID, $scope.sprDtls[i].CategoryID, $scope.sprDtls[i].ProductID, $scope.sprDtls[i].UnitID).then(function (response) {
-                //            if (response.data) {
-                //                debugger
-                //                $scope.Id = response.data.ProductID;
-                //                for (j = 0; j < $scope.sprDtls.length; j++) {
-                //                    if ($scope.Id == $scope.sprDtls[j].ProductID) {
-                //                        $scope.sprDtls[j].StockQty = response.data.Quantity;
-                //                    }
-                //                }
-                //            }
-                //        })
-                //    }
-                //}
+                $scope.Index = 1;
+                for (i = 0; i < $scope.sprDtls.length; i++) {
+                    $scope.sprDtls.Index = $scope.Index;
+                    $scope.Index++;
+                }
             }
         })
     }
@@ -171,10 +167,12 @@
 
     $scope.saveMRR = function () {
         debugger
-        $scope.mMr.SupplierID = 1; // by kamrul -> science no need to store about supplier
-
+        $scope.mMr.SupplierID = 0; // by kamrul -> science no need to store about supplier
+        $scope.mMr.POID = 0;
+        $scope.mMr.QCID = 0;
+        
         if ($scope.MRRForm.$valid) {
-            var saveType = inventoryRepository.saveMRR($scope.mMr, $scope.loadAppPurchaseOrderDtlss, $scope.deleteDtlsID).then(function (response) {
+            var saveType = inventoryRepository.saveMRR($scope.mMr, $scope.sprDtls).then(function (response) {
                 if (response.data.isSucess) {
 
                     toastr.success(response.data.message);
@@ -222,40 +220,38 @@
     $scope.total = {};
     $scope.disabled = false;
     $scope.checkRemainQty = function (row) {
+        debugger 
         $scope.total.GrandTotal = 0;
-        if (row.ReceiveQtys > row.QCPassQty) {
+        $scope.mMr.SubTotal = 0;
+        if ((row.ReceiveQtys > row.ReqQty)) {
             $scope.disabled = true;
             row.ReceiveQtys = " ";
-            toastr.error("Order Quantity can not bigger then ApprovedQty Quantity");
-        } else {
+            toastr.error("Order Quantity can not bigger then ReqQty Quantity");
+            return;
+        }
+        if (row.UnitRate && row.ReceiveQtys) {
             debugger
             $scope.disabled = false;
             var LineTotal = (row.ReceiveQtys) * (row.UnitRate);
-            //var Discount = (LineTotal) - (row.Discount);
 
-            for (var i = 0; i < $scope.loadAppPurchaseOrderDtlss.length; i++) {
-                if ($scope.loadAppPurchaseOrderDtlss[i].Index == row.Index) {
-                    $scope.loadAppPurchaseOrderDtlss[i].CategoryID = row.CategoryID;
-                    $scope.loadAppPurchaseOrderDtlss[i].ProductID = row.ProductID;
-                    $scope.loadAppPurchaseOrderDtlss[i].UnitID = row.UnitID;
-                    $scope.loadAppPurchaseOrderDtlss[i].ReceiveQty = row.ReceiveQtys;
-                    $scope.loadAppPurchaseOrderDtlss[i].UnitRate = row.UnitRate;
-
-                    $scope.loadAppPurchaseOrderDtlss[i].OrderQty = row.OrderQty;
-                    $scope.loadAppPurchaseOrderDtlss[i].PODtlsID = row.PODtlsID;
-                    $scope.loadAppPurchaseOrderDtlss[i].LineTotal = LineTotal;
+            for (var i = 0; i < $scope.sprDtls.length; i++) {
+                if ($scope.sprDtls[i].Index == row.Index) {
+                    $scope.sprDtls[i].ReceiveQty = row.ReceiveQtys;
+                    $scope.sprDtls[i].UnitRate = row.UnitRate;
+                    $scope.sprDtls[i].LineTotal = LineTotal;
 
                     //$scope.loadAppPurchaseOrderDtlss[i].GrandTotal = $scope.loadAppPurchaseOrderDtlss[i].GrandTotal + LineTotal;
                 }
 
 
-                if ($scope.loadAppPurchaseOrderDtlss[i].LineTotal) {
-                    $scope.total.GrandTotal = parseInt($scope.total.GrandTotal) + $scope.loadAppPurchaseOrderDtlss[i].LineTotal;
+                if ($scope.sprDtls[i].LineTotal) {
+                    $scope.total.GrandTotal = parseInt($scope.total.GrandTotal) + $scope.sprDtls[i].LineTotal;
                 }
 
             }
-
+            $scope.mMr.SubTotal = $scope.total.GrandTotal;
         }
+            
 
     }
     $scope.loadmRRList = function () {

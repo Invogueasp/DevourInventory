@@ -16,7 +16,7 @@ namespace DAL.db
     {
         public int MRRDtlsID { get; set; }
         public int MRRID { get; set; }
-        public int PODtlsID { get; set; }
+        public Nullable<int> PODtlsID { get; set; }
         public int CategoryID { get; set; }
         public int ProductID { get; set; }
         public int UnitID { get; set; }
@@ -24,7 +24,5 @@ namespace DAL.db
         public decimal UnitRate { get; set; }
         public Nullable<decimal> Discount { get; set; }
         public decimal LineTotal { get; set; }
-    
-        public virtual INV_PODtls INV_PODtls { get; set; }
     }
 }

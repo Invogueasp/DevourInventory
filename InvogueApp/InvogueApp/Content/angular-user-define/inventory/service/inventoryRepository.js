@@ -174,9 +174,9 @@
         loadAppPurchaseOrderDtls: function (pOID) {
             return $http.post('/MRR/LoadPurchaseOrderDtls', { "pOID": pOID });
         },
-        saveMRR: function (mMr, loadAppPurchaseOrderDtlss, deleteDtlsID) {
+        saveMRR: function (mMr, sprDtls) {
             debugger
-            return $http.post('/MRR/SaveMRR', { "mRr": mMr, "mRrDtls": loadAppPurchaseOrderDtlss, "deletepDtlsID": deleteDtlsID });
+            return $http.post('/MRR/SaveMRR', { "mRr": mMr, "mRrDtls": sprDtls });
         },
         loadMRR: function (mRRID, param) {
             return $http.post('/MRR/LoadMRR', { "mRRID": mRRID, "param": param });

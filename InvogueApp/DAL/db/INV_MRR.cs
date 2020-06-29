@@ -16,11 +16,12 @@ namespace DAL.db
     {
         public int MRRID { get; set; }
         public Nullable<int> QCID { get; set; }
-        public int POID { get; set; }
+        public Nullable<int> POID { get; set; }
+        public int SPRID { get; set; }
         public string MRRNO { get; set; }
         public System.DateTime MRRDate { get; set; }
         public string SupplierInv { get; set; }
-        public int SupplierID { get; set; }
+        public Nullable<int> SupplierID { get; set; }
         public Nullable<decimal> SubTotal { get; set; }
         public Nullable<decimal> TotalDiscount { get; set; }
         public Nullable<decimal> TotalVat { get; set; }
@@ -31,7 +32,6 @@ namespace DAL.db
         public string Status { get; set; }
     
         public virtual SEC_UserInformation SEC_UserInformation { get; set; }
-        public virtual INV_PO INV_PO { get; set; }
-        public virtual INV_Supplier INV_Supplier { get; set; }
+        public virtual INV_SPR INV_SPR { get; set; }
     }
 }

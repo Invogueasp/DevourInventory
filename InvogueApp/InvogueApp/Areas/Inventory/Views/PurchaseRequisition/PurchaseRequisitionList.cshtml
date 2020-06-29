@@ -38,7 +38,7 @@
     <div class="panel-body">
         <div class="row form-horizontal" ng-init="loadParameters()">
             <div class="col-lg-6">
-                <div class="form-group">
+                <div class="form-group hidden">
                     <div class="form-inner13">
                         <label for="ExpertiseAreaName" class="left-col control-label">Form Date</label>
                         <div class="right-col">
@@ -50,7 +50,7 @@
                         <div class="clr"></div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group hidden">
                     <div class="form-inner13">
                         <label for="ExpertiseAreaName" class="left-col control-label">To Date</label>
                         <div class="right-col">
@@ -87,24 +87,24 @@
 
             </div>
         </div>
-        <table st-table="data" st-safe-src="sprList" class="table table-striped">
+        <table st-table="data" st-safe-src="sprList" class="table table-striped" ng-init="loadSpr(parameters)">
             <thead>
-            <tr>
-                <th colspan="8" style="padding-right: 0px;">
-                    <input st-search class="input-sm form-control topsearch" type="search" placeholder="Search" style="width: 200px; float: right"/>
-                </th>
+                <tr>
+                    <th colspan="8" style="padding-right: 0px;">
+                        <input st-search class="input-sm form-control topsearch" type="search" placeholder="Search" style="width: 200px; float: right" />
+                    </th>
 
-            </tr>
-            <tr>
-                <th>Requisition NO.</th>
-                <th>Requisition Date</th>
-                @*<th>Required Date</th>*@
-                <th>Requisition Approval</th>
-                @*<th>2nd App.Status</th>
-                <th>3rd App.Status</th>*@
-                @*<th>Store Name</th>*@
-                <th style="width: 10%; text-align: center;">Action </th>
-            </tr>
+                </tr>
+                <tr>
+                    <th>Requisition NO.</th>
+                    <th>Requisition Date</th>
+                    @*<th>Required Date</th>*@
+                    <th>Requisition Approval</th>
+                    @*<th>2nd App.Status</th>
+                    <th>3rd App.Status</th>*@
+                    @*<th>Store Name</th>*@
+                    <th style="width: 10%; text-align: center;">Action </th>
+                </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="row in data">
@@ -113,9 +113,9 @@
                     @*<td>{{row.RequiredDate}}</td>*@
                     <td>{{row.FirstApproveStatus == "A" ? "Approved":"Pending"}}</td>
                     @*<td>{{row.SecondApproveStatus == "2A" ? "Approved":"Pending"}}</td>
-            <td ng-if="row.ThirdApproveStatus == '3A'">{{row.ThirdApproveStatus == "3A" ? "Approved":"Pending"}}</td>
-            <td ng-if="row.ThirdApproveStatus =='F'">{{row.ThirdApproveStatus == "F" ? "Approved":"Pending"}}</td>
-            <td ng-if="row.ThirdApproveStatus ==null">Pending</td>*@
+                    <td ng-if="row.ThirdApproveStatus == '3A'">{{row.ThirdApproveStatus == "3A" ? "Approved":"Pending"}}</td>
+                    <td ng-if="row.ThirdApproveStatus =='F'">{{row.ThirdApproveStatus == "F" ? "Approved":"Pending"}}</td>
+                    <td ng-if="row.ThirdApproveStatus ==null">Pending</td>*@
                     @*<td>{{row.BranchName}}</td>*@
                     <td align="center">
                         <button type="button" ng-click="editRow(row)" ng-disabled="row.endAppBtn" class="btn btn-success btn-xs">
@@ -129,11 +129,11 @@
 
             </tbody>
             <tfoot>
-            <tr>
-                <td colspan="6" class="Page-align">
-                    <div st-pagination="" st-items-by-page="itemsByPage"></div>
-                </td>
-            </tr>
+                <tr>
+                    <td colspan="6" class="Page-align">
+                        <div st-pagination="" st-items-by-page="itemsByPage"></div>
+                    </td>
+                </tr>
             </tfoot>
         </table>
 

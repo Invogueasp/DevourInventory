@@ -573,11 +573,15 @@ namespace DAL.db
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_SaveIssue", iIssueIDParameter, iSRIDParameter, iIssueNOParameter, iIssueDateParameter, iStatusParameter, iCreatedByParameter, iUpdatedByParameter, rError, rIssueID);
         }
     
-        public virtual int sp_SaveMRR(Nullable<int> iMRRID, Nullable<int> iPOIDID, Nullable<int> iQCID, string iMRRNO, Nullable<System.DateTime> iMRRDate, string iSupplierInv, Nullable<int> iSupplierID, Nullable<decimal> iSubTotal, Nullable<decimal> iTotalDiscount, Nullable<decimal> iTotalVat, string iStatus, Nullable<int> iCreatedBy, Nullable<int> iUpdatedBy, ObjectParameter rError, ObjectParameter iLastID)
+        public virtual int sp_SaveMRR(Nullable<int> iMRRID, Nullable<int> iSPRID, Nullable<int> iPOIDID, Nullable<int> iQCID, string iMRRNO, Nullable<System.DateTime> iMRRDate, string iSupplierInv, Nullable<int> iSupplierID, Nullable<decimal> iSubTotal, Nullable<decimal> iTotalDiscount, Nullable<decimal> iTotalVat, string iStatus, Nullable<int> iCreatedBy, Nullable<int> iUpdatedBy, ObjectParameter rError, ObjectParameter iLastID)
         {
             var iMRRIDParameter = iMRRID.HasValue ?
                 new ObjectParameter("iMRRID", iMRRID) :
                 new ObjectParameter("iMRRID", typeof(int));
+    
+            var iSPRIDParameter = iSPRID.HasValue ?
+                new ObjectParameter("iSPRID", iSPRID) :
+                new ObjectParameter("iSPRID", typeof(int));
     
             var iPOIDIDParameter = iPOIDID.HasValue ?
                 new ObjectParameter("iPOIDID", iPOIDID) :
@@ -627,7 +631,7 @@ namespace DAL.db
                 new ObjectParameter("iUpdatedBy", iUpdatedBy) :
                 new ObjectParameter("iUpdatedBy", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_SaveMRR", iMRRIDParameter, iPOIDIDParameter, iQCIDParameter, iMRRNOParameter, iMRRDateParameter, iSupplierInvParameter, iSupplierIDParameter, iSubTotalParameter, iTotalDiscountParameter, iTotalVatParameter, iStatusParameter, iCreatedByParameter, iUpdatedByParameter, rError, iLastID);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_SaveMRR", iMRRIDParameter, iSPRIDParameter, iPOIDIDParameter, iQCIDParameter, iMRRNOParameter, iMRRDateParameter, iSupplierInvParameter, iSupplierIDParameter, iSubTotalParameter, iTotalDiscountParameter, iTotalVatParameter, iStatusParameter, iCreatedByParameter, iUpdatedByParameter, rError, iLastID);
         }
     
         public virtual int sp_SaveOpeningStock(Nullable<int> iBranchID, Nullable<int> iCreatedBy, Nullable<System.DateTime> iCreatedDate, ObjectParameter rError)

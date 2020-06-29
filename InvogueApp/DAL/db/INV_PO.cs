@@ -18,7 +18,6 @@ namespace DAL.db
         public INV_PO()
         {
             this.INV_MaterialReceive = new HashSet<INV_MaterialReceive>();
-            this.INV_MRR = new HashSet<INV_MRR>();
             this.INV_MRR_HO = new HashSet<INV_MRR_HO>();
             this.INV_PODtls = new HashSet<INV_PODtls>();
         }
@@ -42,8 +41,6 @@ namespace DAL.db
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<INV_MaterialReceive> INV_MaterialReceive { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<INV_MRR> INV_MRR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<INV_MRR_HO> INV_MRR_HO { get; set; }
         public virtual SEC_UserInformation SEC_UserInformation { get; set; }

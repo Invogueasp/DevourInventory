@@ -17,6 +17,7 @@ namespace DAL.db
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public INV_SPR()
         {
+            this.INV_MRR = new HashSet<INV_MRR>();
             this.INV_PO = new HashSet<INV_PO>();
             this.INV_SPRDtls = new HashSet<INV_SPRDtls>();
         }
@@ -40,6 +41,8 @@ namespace DAL.db
         public Nullable<System.DateTime> ThirdApproveDate { get; set; }
         public string ThirdApproveStatus { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<INV_MRR> INV_MRR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<INV_PO> INV_PO { get; set; }
         public virtual SET_CompanyBranch SET_CompanyBranch { get; set; }

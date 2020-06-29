@@ -17,7 +17,6 @@ namespace DAL.db
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public INV_Supplier()
         {
-            this.INV_MRR = new HashSet<INV_MRR>();
             this.INV_MRR_HO = new HashSet<INV_MRR_HO>();
             this.INV_PO = new HashSet<INV_PO>();
             this.INV_SupplierProduct = new HashSet<INV_SupplierProduct>();
@@ -40,8 +39,6 @@ namespace DAL.db
         public Nullable<decimal> CreditLimit { get; set; }
         public Nullable<int> CurrencyID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<INV_MRR> INV_MRR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<INV_MRR_HO> INV_MRR_HO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

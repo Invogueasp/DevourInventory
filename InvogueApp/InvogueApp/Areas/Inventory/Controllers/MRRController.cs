@@ -75,76 +75,63 @@ namespace InvogueApp.Areas.Inventory.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveMRR(INV_MRR mRr, List<VM_TempMrrDtlsList> mRrDtls, List<int> deletepDtlsID)
+        public JsonResult SaveMRR(INV_MRR mRr, List<VM_TempMrrDtlsList> mRrDtls)
         {
             result = new Result();
             mrrFactory = new MRRFactorys();
             int userID = Convert.ToInt32(dictionary[3].Id == "" ? 0 : Convert.ToInt32(dictionary[3].Id));
-            if (mRr.MRRID > 0)
+            var data = db.INV_MRR.Where(x => x.MRRNO == mRr.MRRNO).Count();
+            if (data > 0)
             {
-                mRr.UpdatedBy = userID;
-                mRr.UpdatedDate = todayDate;
+                result.isSucess = false;
+                result.message = "All Ready Exsit!!";
             }
             else
             {
-                mRr.Status = "A";
-                mRr.CreatedBy = userID;
-                mRr.CreatedDate = todayDate;
-            }
+                if (mRr.MRRID > 0)
+                {
+                    mRr.UpdatedBy = userID;
+                    mRr.UpdatedDate = todayDate;
+                }
+                else
+                {
+                    mRr.Status = "A";
+                    mRr.CreatedBy = userID;
+                    mRr.CreatedDate = todayDate;
+                }
 
-            result = mrrFactory.SaveMRR(mRr, mRrDtls, deletepDtlsID);
-            result.lastInsertedID = mRr.MRRID;
+                result = mrrFactory.SaveMRR(mRr, mRrDtls);
+                result.lastInsertedID = mRr.MRRID;
+            }
+            
             return Json(result);
         }
         [HttpPost]
         public JsonResult LoadMRR(int? mRRID, VM_Parameters param)
         {
-            //mrrFactory = new MRRFactorys();
-            //List<INV_MRR> list = mrrFactory.SearchMRR(mRRID);
-            //var mRRList = list.Select(x => new
-            //{
-            //    x.POID,
-            //    x.MRRID,
-            //    x.Status,
-            //    x.SupplierID,
-            //    x.SupplierInv,
-            //    x.MRRNO,
-            //    x.INV_PO.PONO,
-            //    x.INV_PO.SPRID,
-            //    x.CreatedDate,
-            //    x.MRRDate,
-            //    x.CreatedBy,
-            //    x.QCID,
-            //    x.INV_Supplier.Name
-            //});
 
             var mRRList = (from x in db.INV_MRR
-                join po in db.INV_PO on x.POID equals po.POID
-                join spr in db.INV_SPR on po.SPRID equals spr.SPRID
-                join s in db.INV_Supplier on x.SupplierID equals s.SupplierID
+                join spr in db.INV_SPR on x.SPRID equals spr.SPRID
                 join u in db.SEC_UserInformation on x.CreatedBy equals u.ID
-                join d in db.INV_Department on u.DepartmentID equals d.DepartmentID
                 join cb in db.SET_CompanyBranch on spr.BranchID equals cb.BranchID
                 select new
                 {
                     x.POID,
+                    x.SPRID,
                     x.MRRID,
                     x.Status,
                     x.SupplierID,
                     x.SupplierInv,
                     x.MRRNO,
-                    po.PONO,
-                    spr.SPRID,
+                    spr.SPRNO,
                     x.CreatedDate,
                     x.MRRDate,
                     x.CreatedBy,
                     x.UpdatedBy,
                     x.UpdatedDate,
                     x.QCID,
-                    s.Name,
                     u.DepartmentID,
                     spr.BranchID,
-                    Department = d.Name,
                     BranchName = cb.Name
                 }).ToList();
 
@@ -155,10 +142,6 @@ namespace InvogueApp.Areas.Inventory.Controllers
             if (param.FormDate != null && param.ToDate != null)
             {
                 mRRList = mRRList.Where(x => x.MRRDate >= param.FormDate && x.MRRDate <= param.ToDate).ToList();
-            }
-            if (param.DepartmentID > 0)
-            {
-                mRRList = mRRList.Where(x => x.DepartmentID == param.DepartmentID).ToList();
             }
             if (param.BranchID > 0)
             {
