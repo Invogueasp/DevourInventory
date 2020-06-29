@@ -14,7 +14,7 @@
         debugger
 
         $scope.storeReq = {};
-        $scope.storeReq.RequisitionDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
+        //$scope.storeReq.RequisitionDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
         $scope.storeReq.UserFullName = $scope.UserFullName;
         $cookieStore.put('editStoreReq', $scope.storeReq);
     }
@@ -30,6 +30,8 @@ $scope.statusList = [];
 $scope.loadDropdowns = function () {
     
     $scope.storeReq.RequisitionDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
+    $scope.storeReq.RequiredDate = $filter('date')(Date.now(), 'dd-MMM-yyyy');
+    debugger
     $scope.loadLoginBranchID();
     $scope.loadStore();
     $scope.loadCategory();

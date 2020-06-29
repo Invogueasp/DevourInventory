@@ -80,8 +80,7 @@ angular.module('app').controller('menuController', function ($scope, $http, $roo
     $scope.StockWithValue = false;
 
     $scope.menuCount = {};
-    $http.get('/Security/GetAllCountData').then(function (response) {
-        debugger;     
+    $http.get('/Security/GetAllCountData').then(function (response) {             
         $scope.menuCount.sprCountData = response.data.sprApprovalCountData;
         $scope.menuCount.pOCountData = response.data.PurchaseOrderCountData;
         $scope.menuCount.pOFirstAppCountData = response.data.PurchaseOrderFirstAppCountData;

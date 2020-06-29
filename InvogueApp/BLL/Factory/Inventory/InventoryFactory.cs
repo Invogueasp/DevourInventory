@@ -280,6 +280,7 @@ namespace BLL.Factory.Inventory
                         {
                             foreach (var store in storeReqDtls)
                             {
+                                store.ApprovedQty = store.ReqQty; //new added for pizzamia inventory
                                 if (store.SRDtlsID < 1)
                                 {
 
@@ -292,7 +293,7 @@ namespace BLL.Factory.Inventory
                                     }
 
                                     store.SRDtlsID = sRDtlsID;
-                                    store.SRID = storeReq.SRID;
+                                    store.SRID = storeReq.SRID;                                   
                                     _storeReqDtlsFactory.Add(store);
                                     _result = _storeReqDtlsFactory.Save();
 
@@ -304,7 +305,7 @@ namespace BLL.Factory.Inventory
                                 }
                                 else
                                 {
-
+                                    
                                     _storeReqDtlsFactory.Edit(store);
                                     _result = _storeReqDtlsFactory.Save();
 
@@ -352,6 +353,7 @@ namespace BLL.Factory.Inventory
 
                                 store.SRDtlsID = sRDtlsID;
                                 store.SRID = storeReq.SRID;
+                                store.ApprovedQty = store.ReqQty; //new added for pizzamia inventory
                                 _storeReqDtlsFactory.Add(store);
                                 _result = _storeReqDtlsFactory.Save();
 
@@ -459,6 +461,10 @@ namespace BLL.Factory.Inventory
                 SqlParameter prmErr = new SqlParameter("@rError", SqlDbType.VarChar, 100);
                 prmErr.Direction = ParameterDirection.Output;
                 cmd.Parameters.Add(prmErr);
+
+                SqlParameter prmIssueID = new SqlParameter("@rIssueID", SqlDbType.Int);
+                prmIssueID.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(prmIssueID);
 
                 cmd.Parameters.AddWithValue("@iIssueID", issue.IssueID);
                 cmd.Parameters.AddWithValue("@iSRID", issue.SRID);

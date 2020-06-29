@@ -41,11 +41,9 @@
                 </tr>
                 <tr>
                     <th>Requisition No</th>
-                    <th>Requisition Date</th>
-                    <th>Store</th>
+                    <th>Requisition Date</th>                   
                     <th>Required Date</th>
                     <th>Status</th>
-                    <th>Department</th>
                     <th style="width: 10%">Action </th>
                 </tr>
             </thead>
@@ -53,11 +51,8 @@
                 <tr ng-repeat="row in data">
                     <td>{{row.SRNO}}</td>
                     <td>{{row.RequisitionDate}}</td>
-                    <td>{{row.Name}}</td>
                     <td>{{row.RequiredDate}}</td>
-                    @*<td>{{row.Status == 'A' ? "Approved":"Pending"}}</td>*@
                     <td>{{row.Status == '2A' ? "Approved":"Pending"}}</td>
-                    <td>{{row.Department}}</td>
                     <td align="center">
                         <button type="button" ng-click="editRow(row)" ng-disabled="end3AppBtn" class="btn btn-success btn-xs">
                             <i class="fa fa-pencil"></i>

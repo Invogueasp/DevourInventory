@@ -51,13 +51,13 @@ namespace InvogueApp.Areas.Inventory.Controllers
             int userID = Convert.ToInt32(dictionary[3].Id == "" ? 0 : Convert.ToInt32(dictionary[3].Id));
             if (storeReq.SRID > 0)
             {
-               
+                storeReq.Status = "2A";
                 storeReq.UpdatedBy = userID;
                 storeReq.UpdatedDate = todayDate;
             }
             else
             {
-                storeReq.Status = "P";
+                storeReq.Status = "2A";
                 storeReq.CreatedBy = userID;
                 storeReq.CreatedDate = todayDate;
             }
@@ -69,30 +69,7 @@ namespace InvogueApp.Areas.Inventory.Controllers
 
         [HttpPost]
         public JsonResult LoadStoreReq(int? srID, string status)
-        {   
-            //storeReqFactory = new StoreReqFactorys();
-            //List<INV_SR> list = storeReqFactory.SearchStoreReq(srID);
-            //int loginUserID = Convert.ToInt32(dictionary[3].Id == "" ? 0 : Convert.ToInt32(dictionary[3].Id));
-            //string userName = db.SEC_UserInformation.Where(x=> x.ID== loginUserID).Select(x => x.UserFullName).ToList().FirstOrDefault();
-            //var userID = db.SEC_UserInformation.Where(x => x.ID == loginUserID).FirstOrDefault();
-            //var deptName = db.INV_Department.Where(x => x.DepartmentID == userID.DepartmentID).FirstOrDefault();
-            //var productList = list.Select(x => new
-            //{
-            //    x.SRID,
-            //    x.BranchID,
-            //    x.SRNO,
-            //    x.SET_CompanyBranch.Name,
-            //    x.RequisitionDate,
-            //    x.RequiredDate,
-            //    x.CreatedDate,
-            //    x.CreatedBy,
-            //    x.UpdatedBy,
-            //    x.UpdatedDate,
-            //    UserFullName = userName,
-            //    Department = deptName.Name,
-            //    x.Status
-            //});
-
+        { 
             var productList = (from x in db.INV_SR
                 join u in db.SEC_UserInformation on x.CreatedBy equals u.ID
                 join d in db.INV_Department on u.DepartmentID equals d.DepartmentID

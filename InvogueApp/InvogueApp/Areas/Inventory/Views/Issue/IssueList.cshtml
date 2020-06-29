@@ -60,7 +60,7 @@
                             <div class="clr"></div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group hidden">
                         <div class="form-inner13">
                             <label class="left-col control-label">Store</label>
                             <div class="right-col">
@@ -71,7 +71,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group hidden">
                         <div class="form-inner13">
                             <label class="left-col control-label">Department</label>
                             <div class="right-col">
@@ -82,7 +82,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group hidden">
                         <div class="form-inner13">
                             <label class="left-col control-label">Raise By</label>
                             <div class="right-col">
@@ -100,8 +100,6 @@
                                 <th st-sort="Address">Req. No</th>
                                 <th st-sort="UserFullName">Req. Date</th>
                                 <th st-sort="UserFullName">Req. Date</th>
-                                <th st-sort="UserFullName">Store</th>
-                                <th st-sort="UserFullName">Department</th>
                                 <th st-sort="UserFullName">Status</th>
                                 <th style="width: 8%; text-align: center;">Action</th>
                             </tr>
@@ -111,8 +109,6 @@
                                 <td>{{row.SRNO}}</td>
                                 <td>{{row.RequisitionDate}}</td>
                                 <td>{{row.RequiredDate}}</td>
-                                <td>{{row.Name}}</td>
-                                <td>{{row.DepartmentName}}</td>
                                 <td>{{row.IssueStatus}}</td>
                                 <td align="center">
                                     <button type="button" ng-click="viewIssueApprovalRow(row)" class="btn btn-primary btn-xs">
@@ -164,18 +160,6 @@
                                                 <div class="clr"></div>
                                             </div>
                                         </div>
-                                        @*<div class="form-group">
-                                                <div class="form-inner13">
-                                                    <label for="ExpertiseAreaName" class="left-col control-label">Req. Date</label>
-                                                    <div class="right-col">
-                                                        <div id="datepicker-component" class="input-group date">
-                                                            <input type="text" class="form-control datepicker">
-                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="clr"></div>
-                                                </div>
-                                            </div>*@
                                         <div class="form-group">
                                             <div class="form-inner13">
                                                 <label class="left-col control-label">Store</label>
@@ -187,7 +171,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
 

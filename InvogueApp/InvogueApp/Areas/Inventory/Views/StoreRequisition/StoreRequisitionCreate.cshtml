@@ -16,18 +16,6 @@
     }
 }
 <style>
-    /*.product_row_content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .product_row_content .form-group {
-        padding-right: 15px;
-    }*/
-
-
-
     .expense .form-group:first-child {
         width: 31.33%;
         padding-right: 15px;
@@ -148,7 +136,7 @@
                             <div class="clr"></div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group hidden">
                         <div class="form-inner13">
                             <label class="left-col control-label">Store</label>
                             <div class="right-col">
@@ -158,7 +146,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group hidden">
                         <div class="form-inner13">
                             <label class="left-col control-label">Department</label>
                             <div class="right-col">
@@ -178,7 +166,7 @@
                             <div class="clr"></div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group hidden">
                         <div class="form-inner13">
                             <label class="left-col control-label">Raise By</label>
                             <div class="right-col">
@@ -186,16 +174,6 @@
                             </div>
                         </div>
                     </div>
-                    @*<div class="form-group">
-                        <div class="form-inner13">
-                            <label class="left-col control-label">Status</label>
-                            <div class="right-col">
-                                <select2 style="width:100%" placeholder="--Select Status--" ng-model="storeReq.Status" s2-options="status.id as status.label for status in statusList" required>
-
-                                </select2>
-                            </div>
-                        </div>
-                    </div>*@
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xl-mb30" style="margin-top: 20px;">
@@ -204,7 +182,7 @@
                         <thead>
                             <tr>
                                 <th style="width:100px">Category</th>
-                                <th>product name/code/partnumber</th>
+                                <th>Product Name</th>
                                 <th style="width:150px">Unit</th>
                                 <th >StockQty</th>
                                 <th>Quantity</th>
